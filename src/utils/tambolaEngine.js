@@ -91,23 +91,31 @@ export function shuffleArray(array) {
 /**
  * Generates a complete ticket by filling a fixed grid of size rows x columns
  */
-export function generateTicket(items, ticketIndex, rows = 3, columns = 9) {
-  const totalCells = rows * columns;
-  if (items.length < totalCells) {
-    throw new Error(`Must have at least ${totalCells} items to generate this ticket.`);
+export function generateTicket(items, ticketIndex, rows = 3, columns = 9, itemsPerRow = 5) {
+  const minNeeded = rows * itemsPerRow;
+  if (items.length < minNeeded) {
+    throw new Error(`Must have at least ${minNeeded} items to generate this ticket.`);
   }
 
-  // Shuffle items and take exactly rows * columns unique items
-  const shuffledItems = shuffleArray(items).slice(0, totalCells);
+  // Shuffle items and take exactly rows * itemsPerRow unique items
+  const shuffledItems = shuffleArray(items).slice(0, minNeeded);
   
-  // Construct grid: rows x columns fully filled
+  // Generate a valid grid mask where each row has exactly itemsPerRow items
+  // and every column has at least one item (no column is blank)
+  const mask = generateGridMask(rows, columns, itemsPerRow);
+
+  // Construct grid: rows x columns containing items or null
   const grid = [];
   let itemPointer = 0;
   
   for (let r = 0; r < rows; r++) {
     const row = [];
     for (let c = 0; c < columns; c++) {
-      row.push(shuffledItems[itemPointer++]);
+      if (mask[r][c]) {
+        row.push(shuffledItems[itemPointer++]);
+      } else {
+        row.push(null);
+      }
     }
     grid.push(row);
   }
@@ -119,6 +127,64 @@ export function generateTicket(items, ticketIndex, rows = 3, columns = 9) {
     rows,
     columns
   };
+}
+
+function generateGridMask(rows, columns, itemsPerRow) {
+  let attempts = 0;
+  while (attempts < 1000) {
+    attempts++;
+    const mask = Array.from({ length: rows }, () => Array(columns).fill(false));
+    
+    for (let r = 0; r < rows; r++) {
+      const cols = [];
+      while (cols.length < itemsPerRow) {
+        const randCol = Math.floor(Math.random() * columns);
+        if (!cols.includes(randCol)) {
+          cols.push(randCol);
+        }
+      }
+      cols.forEach(c => {
+        mask[r][c] = true;
+      });
+    }
+    
+    // Check if every column has at least one item
+    let allColumnsFilled = true;
+    for (let c = 0; c < columns; c++) {
+      let colHasItem = false;
+      for (let r = 0; r < rows; r++) {
+        if (mask[r][c]) {
+          colHasItem = true;
+          break;
+        }
+      }
+      if (!colHasItem) {
+        allColumnsFilled = false;
+        break;
+      }
+    }
+    
+    if (allColumnsFilled) {
+      return mask;
+    }
+  }
+  
+  // Deterministic fallback to guarantee no blank column
+  const mask = Array.from({ length: rows }, () => Array(columns).fill(false));
+  for (let c = 0; c < columns; c++) {
+    const r = c % rows;
+    mask[r][c] = true;
+  }
+  for (let r = 0; r < rows; r++) {
+    let currentCount = mask[r].filter(Boolean).length;
+    for (let c = 0; c < columns && currentCount < itemsPerRow; c++) {
+      if (!mask[r][c]) {
+        mask[r][c] = true;
+        currentCount++;
+      }
+    }
+  }
+  return mask;
 }
 
 /**

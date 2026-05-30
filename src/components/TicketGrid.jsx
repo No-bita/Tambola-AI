@@ -1,8 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { Download, Printer, Share2, Sparkles, Check, CheckCircle2 } from 'lucide-react';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
-
 import { DEFAULT_THEMES } from '../utils/tambolaEngine';
 
 const TRANSLATIONS = {
@@ -44,14 +40,13 @@ export default function TicketGrid({
   theme,
   ticketStyle,
   customTitle,
+  customDesign,
   setTickets,
   rows,
   columns
 }) {
   const ticketsPerPage = 2;
   const [markedCells, setMarkedCells] = useState({}); // { [ticketId-row-col]: boolean }
-  const [isExporting, setIsExporting] = useState(false);
-  const [exportProgress, setExportProgress] = useState(0);
   const containerRef = useRef(null);
   
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
@@ -75,6 +70,34 @@ export default function TicketGrid({
     return item.name[language] || item.name['en'] || item.name;
   };
 
+  // Get custom uploaded design styles or custom image background styles
+  const getCustomStyles = () => {
+    if (ticketStyle === 'custom-image-bg' && customBgImage) {
+      return {
+        wrapper: {
+          background: `url(${customBgImage}) center/cover no-repeat`,
+          border: '2px solid rgba(0,0,0,0.15)',
+          color: '#1e1a34', // dark text for clarity
+          fontFamily: getFontFamily(),
+          boxShadow: 'inset 0 0 0 1000px rgba(255, 255, 255, 0.2)' // subtle white wash to overlay image
+        },
+        header: {
+          borderBottom: '2px solid rgba(30, 26, 52, 0.15)',
+          color: '#1e1a34'
+        },
+        cell: (isMarked, isEmpty) => ({
+          background: isEmpty ? 'transparent' : (isMarked ? 'rgba(239, 68, 68, 0.45)' : 'rgba(255, 255, 255, 0.75)'),
+          border: '1px solid rgba(30, 26, 52, 0.12)',
+          color: isMarked ? '#ffffff' : '#1e1a34',
+          backdropFilter: isEmpty ? 'none' : 'blur(2px)'
+        })
+      };
+    }
+    return null;
+  };
+
+  const customStyles = getCustomStyles();
+
   // Toggle cell marked status (gameplay simulation)
   const toggleCell = (ticketId, rowIndex, colIndex) => {
     const key = `${ticketId}-${rowIndex}-${colIndex}`;
@@ -93,101 +116,12 @@ export default function TicketGrid({
     return pages;
   };
 
-
-
-  // Trigger Browser Print Dialogue
-  const handlePrint = () => {
-    window.print();
-  };
-
-  // Export full pages PDF
-  const exportPDF = async () => {
-    const pages = document.querySelectorAll('.a4-page');
-    if (!pages.length) return;
-
-    try {
-      setIsExporting(true);
-      setExportProgress(10);
-      
-      const doc = new jsPDF({
-        orientation: 'p',
-        unit: 'mm',
-        format: 'a4'
-      });
-
-      for (let i = 0; i < pages.length; i++) {
-        setExportProgress(Math.round(10 + (i / pages.length) * 80));
-        const canvas = await html2canvas(pages[i], {
-          scale: 2, // good resolution vs file size trade-off
-          useCORS: true,
-          logging: false
-        });
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        
-        if (i > 0) {
-          doc.addPage();
-        }
-        doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
-      }
-
-      setExportProgress(95);
-      doc.save(`${currentTitle.replace(/\s+/g, '_')}_Tickets.pdf`);
-    } catch (err) {
-      console.error('Error generating PDF:', err);
-      alert('Could not generate PDF. Please try again.');
-    } finally {
-      setIsExporting(false);
-      setExportProgress(0);
-    }
-  };
-
   const pages = getPages();
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
-      
-      {/* Top Floating Action Bar */}
-      <div className="glass-panel no-print" style={{
-        padding: '16px 24px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '12px'
-      }}>
-        <div>
-          <h3 style={{ fontSize: '16px', fontWeight: '700' }}>{t.previewHeader}</h3>
-          <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-            {t.previewSub(tickets.length, pages.length)}
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button
-            onClick={handlePrint}
-            className="btn btn-secondary"
-          >
-            <Printer size={18} /> {t.btnPrint}
-          </button>
-          
-          <button
-            onClick={exportPDF}
-            disabled={isExporting}
-            className="btn btn-primary"
-          >
-            {isExporting ? (
-              <span>{t.renderingPdf(exportProgress)}</span>
-            ) : (
-              <>
-                <Download size={18} /> {t.btnExport}
-              </>
-            )}
-          </button>
-        </div>
-      </div>
-
       {/* Grid styling based on tickets density */}
-      <div className="print-area" ref={containerRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%' }}>
+      <div className="print-area" ref={containerRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%', overflowX: 'hidden', padding: '10px 0' }}>
         {pages.map((pageTickets, pageIdx) => (
           <div
             key={pageIdx}
@@ -200,12 +134,12 @@ export default function TicketGrid({
                   key={ticket.id}
                   id={`ticket-element-${ticket.id}`}
                   className={`ticket-wrapper theme-${ticketStyle}`}
-                  style={{ fontFamily: getFontFamily() }}
+                  style={customStyles ? customStyles.wrapper : { fontFamily: getFontFamily() }}
                 >
 
 
                   {/* Ticket Header Banner */}
-                  <div className="ticket-header">
+                  <div className="ticket-header" style={customStyles ? customStyles.header : {}}>
                     <span className="ticket-title">{currentTitle}</span>
                     <span className="ticket-no">{t.cardNo(globalIndex + 1)}</span>
                   </div>
@@ -219,16 +153,17 @@ export default function TicketGrid({
                       row.map((item, cIdx) => {
                         const cellKey = `${ticket.id}-${rIdx}-${cIdx}`;
                         const isMarked = !!markedCells[cellKey];
+                        const isEmpty = !item;
 
                         return (
                           <div
                             key={`${rIdx}-${cIdx}`}
-                            onClick={() => toggleCell(ticket.id, rIdx, cIdx)}
-                            className={`ticket-cell filled ${isMarked ? 'marked' : ''}`}
+                            onClick={() => !isEmpty && toggleCell(ticket.id, rIdx, cIdx)}
+                            className={`ticket-cell ${isEmpty ? 'empty' : 'filled'} ${isMarked ? 'marked' : ''}`}
+                            style={customStyles ? customStyles.cell(isMarked, isEmpty) : {}}
                           >
-                            {/* <span className="cell-emoji">{item.emoji}</span> */}
-                            <span className="cell-name">{getItemName(item)}</span>
-                            {isMarked && (
+                            {!isEmpty && <span className="cell-name">{getItemName(item)}</span>}
+                            {!isEmpty && isMarked && (
                               <div style={{
                                 position: 'absolute',
                                 width: '100%',
