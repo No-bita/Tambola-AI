@@ -42,10 +42,11 @@ export default function TicketGrid({
   customTitle,
   customDesign,
   setTickets,
+  ticketsPerPage,
   rows,
   columns
 }) {
-  const ticketsPerPage = 2;
+  const perPage = ticketsPerPage || 2;
   const [markedCells, setMarkedCells] = useState({}); // { [ticketId-row-col]: boolean }
   const containerRef = useRef(null);
   
@@ -110,8 +111,8 @@ export default function TicketGrid({
   // Divide tickets into pages based on density setting
   const getPages = () => {
     const pages = [];
-    for (let i = 0; i < tickets.length; i += ticketsPerPage) {
-      pages.push(tickets.slice(i, i + ticketsPerPage));
+    for (let i = 0; i < tickets.length; i += perPage) {
+      pages.push(tickets.slice(i, i + perPage));
     }
     return pages;
   };
@@ -125,10 +126,10 @@ export default function TicketGrid({
         {pages.map((pageTickets, pageIdx) => (
           <div
             key={pageIdx}
-            className={`a4-page a4-grid-${ticketsPerPage}`}
+            className={`a4-page a4-grid-${perPage}`}
           >
             {pageTickets.map((ticket, ticketIdx) => {
-              const globalIndex = pageIdx * ticketsPerPage + ticketIdx;
+              const globalIndex = pageIdx * perPage + ticketIdx;
               return (
                 <div
                   key={ticket.id}

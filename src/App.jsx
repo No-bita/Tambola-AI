@@ -45,6 +45,7 @@ export default function App() {
   const [rows, setRows] = useState(3);
   const [columns, setColumns] = useState(9);
   const [itemsPerRow, setItemsPerRow] = useState(5);
+  const [ticketsPerPage, setTicketsPerPage] = useState(2);
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
 
@@ -152,7 +153,7 @@ export default function App() {
     if (items.length >= rows * itemsPerRow) {
       handleGenerate();
     }
-  }, [items, rows, columns, ticketsCount, itemsPerRow]);
+  }, [items, rows, columns, ticketsCount, itemsPerRow, ticketsPerPage]);
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -217,6 +218,8 @@ export default function App() {
           <ControlPanel
             language={language}
             setLanguage={setLanguage}
+            ticketsPerPage={ticketsPerPage}
+            setTicketsPerPage={setTicketsPerPage}
             theme={theme}
             setTheme={setTheme}
             items={items}
@@ -250,6 +253,7 @@ export default function App() {
               customTitle={customTitle}
               customBgImage={customBgImage}
               setTickets={setTickets}
+              ticketsPerPage={ticketsPerPage}
               rows={rows}
               columns={columns}
             />

@@ -11,6 +11,7 @@ const TRANSLATIONS = {
     languageLabel: 'Language',
     ticketStyleLabel: 'Ticket Design',
     ticketsCountLabel: 'No. of Tickets',
+    ticketsPerPageLabel: 'Per Page',
     rowsCountLabel: 'Rows',
     columnsCountLabel: 'Columns',
     itemsPerRowLabel: 'Items per Row',
@@ -50,6 +51,7 @@ const TRANSLATIONS = {
     languageLabel: 'भाषा',
     ticketStyleLabel: 'टिकट डिज़ाइन',
     ticketsCountLabel: 'टिकट संख्या',
+    ticketsPerPageLabel: 'प्रति पृष्ठ',
     rowsCountLabel: 'पंक्तियाँ',
     columnsCountLabel: 'कॉलम',
     itemsPerRowLabel: 'प्रति पंक्ति आइटम',
@@ -89,30 +91,7 @@ const TRANSLATIONS = {
     languageLabel: 'ભાષા',
     ticketStyleLabel: 'ટિકિટ ડિઝાઇન',
     ticketsCountLabel: 'ટિકિટ સંખ્યા',
-    rowsCountLabel: 'પંક્તિઓ',
-    columnsCountLabel: 'કૉલમ',
-    itemsPerRowLabel: 'પંક્તિ દીઠ વસ્તુઓ',
-    itemListHeader: 'વસ્તુ સૂચિ',
-    addItemManual: '✍️ મેન્યુઅલી ઉમેરો',
-    addItemBulk: '📋 બલ્ક આયાત',
-    resetButton: 'રીસેટ',
-    searchPlaceholder: '🔍 વસ્તુઓ શોધો...',
-    generateButton: '✨ તંબોલા ટિકિટ બનાવો',
-    needsItemsWarning: (count) => `ટિકિટ બનાવવા માટે તમારે સૂચિમાં ઓછામાં ઓછી ${count} વસ્તુઓની જરૂર છે.`,
-    themeFood: '🍕 ફૂડ ફિએસ્ટા',
-    themeKitty: '💄 કીટી પાર્ટી',
-    themeCustom: '✨ નવું બનાવો',d: 'अमान्य JSON प्रारूप। इसमें "name" ऑब्जेक्ट और "items" एरे होना चाहिए।',
-    uploadDesign: '📂 अपलोड करें',
-    uploadDesignInvalid: 'अमान्य फ़ाइल प्रारूप। कृपया एक वैध PNG, JPG, या JPEG इमेज अपलोड करें।'
-  },
-  gu: {
-    configTitle: 'રૂપરેખાંકન',
-    configSub: 'થીમ નિયમો, વસ્તુના નામ અને ટિકિટ લેઆઉટ સેટ કરો.',
-    customTitleLabel: 'શીર્ષક',
-    themeLabel: 'ટેમ્પલેટ',
-    languageLabel: 'ભાષા',
-    ticketStyleLabel: 'ટિકિટ ડિઝાઇન',
-    ticketsCountLabel: 'ટિકિટ સંખ્યા',
+    ticketsPerPageLabel: 'પૃષ્ઠ દીઠ',
     rowsCountLabel: 'પંક્તિઓ',
     columnsCountLabel: 'કૉલમ',
     itemsPerRowLabel: 'પંક્તિ દીઠ વસ્તુઓ',
@@ -149,6 +128,8 @@ const TRANSLATIONS = {
 export default function ControlPanel({
   language,
   setLanguage,
+  ticketsPerPage,
+  setTicketsPerPage,
   theme,
   setTheme,
   items,
@@ -446,8 +427,8 @@ export default function ControlPanel({
         </div>
       </div>
 
-      {/* Grid: Ticket Style + Count */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      {/* Grid: Ticket Style + Count + Per Page */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.ticketStyleLabel}</label>
@@ -473,7 +454,7 @@ export default function ControlPanel({
             <option value="classic-retro">{t.skinClassicRetro}</option>
             {customBgImage && (
               <option value="custom-image-bg">
-                🖼️ {language === 'hi' ? 'कस्टम बैकग्राउंड' : language === 'gu' ? 'કસ્ટમ બેકગ્રાઉન્ડ' : 'Custom Background'}
+                \uD83D\uDDBC\uFE0F {language === 'hi' ? '\u0915\u0938\u094d\u091f\u092E \u092C\u0948\u0915\u0917\u094d\u0930\u093E\u0909\u0902\u0921' : language === 'gu' ? '\u0A95\u0AB8\u0ACD\u0A9F\u0AAE \u0AAC\u0AC7\u0A95\u0A97\u0ACD\u0AB0\u0ABE\u0A89\u0AA8\u0ACD\u0AA1' : 'Custom Background'}
               </option>
             )}
           </select>
@@ -489,6 +470,21 @@ export default function ControlPanel({
             onChange={(e) => setTicketsCount(Math.max(1, parseInt(e.target.value) || 1))}
             className="form-input"
           />
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.ticketsPerPageLabel}</label>
+          <select
+            value={ticketsPerPage}
+            onChange={(e) => setTicketsPerPage(parseInt(e.target.value))}
+            className="form-input"
+          >
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={6}>6</option>
+          </select>
         </div>
       </div>
 

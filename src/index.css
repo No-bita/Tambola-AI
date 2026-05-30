@@ -310,11 +310,137 @@ body {
   height: 1123px !important; /* 297mm at 96dpi */
   max-width: none !important;
   aspect-ratio: unset !important;
-  padding: 60px 48px !important;
-  gap: 48px !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   zoom: 1 !important;
+}
+
+/* ===== Grid density variants for tickets per page ===== */
+
+/* 1 ticket per page - large, centered */
+.a4-page.a4-grid-1 {
+  justify-content: center;
+  padding: 8% 6%;
+  gap: 0;
+}
+
+/* 2 tickets per page (default) - stacked vertically */
+.a4-page.a4-grid-2 {
+  justify-content: center;
+  padding: 6% 6%;
+  gap: 5%;
+}
+
+/* 3 tickets per page - tighter spacing */
+.a4-page.a4-grid-3 {
+  justify-content: flex-start;
+  padding: 4% 5%;
+  gap: 3%;
+}
+.a4-page.a4-grid-3 .ticket-wrapper {
+  padding: 14px;
+}
+.a4-page.a4-grid-3 .ticket-header {
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+}
+.a4-page.a4-grid-3 .ticket-title {
+  font-size: 14px;
+}
+.a4-page.a4-grid-3 .ticket-no {
+  font-size: 11px;
+}
+.a4-page.a4-grid-3 .cell-name {
+  font-size: 11px;
+}
+.a4-page.a4-grid-3 .ticket-cell {
+  aspect-ratio: 1.6 / 1;
+}
+
+/* 4 tickets per page - 2x2 grid */
+.a4-page.a4-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-content: unset;
+  align-items: stretch;
+  padding: 4% 4%;
+  gap: 3%;
+}
+.a4-page.a4-grid-4 .ticket-wrapper {
+  padding: 10px;
+}
+.a4-page.a4-grid-4 .ticket-header {
+  margin-bottom: 4px;
+  padding-bottom: 3px;
+}
+.a4-page.a4-grid-4 .ticket-title {
+  font-size: 12px;
+}
+.a4-page.a4-grid-4 .ticket-no {
+  font-size: 10px;
+}
+.a4-page.a4-grid-4 .cell-name {
+  font-size: 9px;
+}
+.a4-page.a4-grid-4 .ticket-cell {
+  aspect-ratio: 1.8 / 1;
+  padding: 2px;
+}
+
+/* 6 tickets per page - 2x3 grid */
+.a4-page.a4-grid-6 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-content: unset;
+  align-items: stretch;
+  padding: 3% 3%;
+  gap: 2.5%;
+}
+.a4-page.a4-grid-6 .ticket-wrapper {
+  padding: 8px;
+}
+.a4-page.a4-grid-6 .ticket-header {
+  margin-bottom: 3px;
+  padding-bottom: 2px;
+}
+.a4-page.a4-grid-6 .ticket-title {
+  font-size: 10px;
+  letter-spacing: 0.3px;
+}
+.a4-page.a4-grid-6 .ticket-no {
+  font-size: 8px;
+}
+.a4-page.a4-grid-6 .cell-name {
+  font-size: 7px;
+  line-height: 1.15;
+}
+.a4-page.a4-grid-6 .ticket-cell {
+  aspect-ratio: 2 / 1;
+  padding: 1px;
+}
+
+/* Export mode density overrides */
+.export-mode .a4-page.a4-grid-1 {
+  padding: 80px 48px !important;
+  gap: 0 !important;
+}
+.export-mode .a4-page.a4-grid-2 {
+  padding: 50px 48px !important;
+  gap: 40px !important;
+}
+.export-mode .a4-page.a4-grid-3 {
+  padding: 30px 40px !important;
+  gap: 24px !important;
+}
+.export-mode .a4-page.a4-grid-4 {
+  padding: 30px 30px !important;
+  gap: 24px !important;
+}
+.export-mode .a4-page.a4-grid-6 {
+  padding: 20px 24px !important;
+  gap: 16px !important;
 }
 
 @media (max-width: 900px) {
