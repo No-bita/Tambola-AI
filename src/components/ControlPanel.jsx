@@ -360,10 +360,13 @@ export default function ControlPanel({
             min="1"
             max="6"
             value={rows}
-            onChange={(e) => {
-              const r = Math.min(6, Math.max(1, parseInt(e.target.value) || 1));
+            onChange={(e) => setRows(e.target.value === '' ? '' : parseInt(e.target.value))}
+            onBlur={() => {
+              let r = parseInt(rows);
+              if (isNaN(r) || r < 1) r = 3;
+              if (r > 6) r = 6;
               setRows(r);
-              const minPer = Math.ceil(columns / r);
+              const minPer = Math.ceil((columns || 9) / r);
               if (itemsPerRow < minPer) setItemsPerRow(minPer);
             }}
             className="form-input"
@@ -377,10 +380,13 @@ export default function ControlPanel({
             min="1"
             max="9"
             value={columns}
-            onChange={(e) => {
-              const c = Math.min(9, Math.max(1, parseInt(e.target.value) || 1));
+            onChange={(e) => setColumns(e.target.value === '' ? '' : parseInt(e.target.value))}
+            onBlur={() => {
+              let c = parseInt(columns);
+              if (isNaN(c) || c < 1) c = 9;
+              if (c > 9) c = 9;
               setColumns(c);
-              const minPer = Math.ceil(c / rows);
+              const minPer = Math.ceil(c / (rows || 3));
               const maxPer = c;
               if (itemsPerRow < minPer) setItemsPerRow(minPer);
               if (itemsPerRow > maxPer) setItemsPerRow(maxPer);
@@ -393,13 +399,17 @@ export default function ControlPanel({
           <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.itemsPerRowLabel}</label>
           <input
             type="number"
-            min={Math.ceil(columns / rows)}
-            max={columns}
+            min={Math.ceil((columns || 9) / (rows || 3))}
+            max={columns || 9}
             value={itemsPerRow}
-            onChange={(e) => {
-              const minPer = Math.ceil(columns / rows);
-              const maxPer = columns;
-              setItemsPerRow(Math.min(maxPer, Math.max(minPer, parseInt(e.target.value) || minPer)));
+            onChange={(e) => setItemsPerRow(e.target.value === '' ? '' : parseInt(e.target.value))}
+            onBlur={() => {
+              let ipr = parseInt(itemsPerRow);
+              const minPer = Math.ceil((columns || 9) / (rows || 3));
+              const maxPer = columns || 9;
+              if (isNaN(ipr) || ipr < minPer) ipr = minPer;
+              if (ipr > maxPer) ipr = maxPer;
+              setItemsPerRow(ipr);
             }}
             className="form-input"
           />
@@ -433,7 +443,7 @@ export default function ControlPanel({
             <option value="classic-retro">{t.skinClassicRetro}</option>
             {customBgImage && (
               <option value="custom-image-bg">
-                \uD83D\uDDBC\uFE0F {language === 'hi' ? '\u0915\u0938\u094d\u091f\u092E \u092C\u0948\u0915\u0917\u094d\u0930\u093E\u0909\u0902\u0921' : language === 'gu' ? '\u0A95\u0AB8\u0ACD\u0A9F\u0AAE \u0AAC\u0AC7\u0A95\u0A97\u0ACD\u0AB0\u0ABE\u0A89\u0AA8\u0ACD\u0AA1' : 'Custom Background'}
+                🖼️ {language === 'hi' ? 'कस्टम बैकग्राउंड' : language === 'gu' ? 'કસ્ટમ બેકગ્રાઉન્ડ' : 'Custom Background'}
               </option>
             )}
           </select>
@@ -446,7 +456,13 @@ export default function ControlPanel({
             min="1"
             max="120"
             value={ticketsCount}
-            onChange={(e) => setTicketsCount(Math.max(1, parseInt(e.target.value) || 1))}
+            onChange={(e) => setTicketsCount(e.target.value === '' ? '' : parseInt(e.target.value))}
+            onBlur={() => {
+              let tc = parseInt(ticketsCount);
+              if (isNaN(tc) || tc < 1) tc = 6;
+              if (tc > 120) tc = 120;
+              setTicketsCount(tc);
+            }}
             className="form-input"
           />
         </div>
