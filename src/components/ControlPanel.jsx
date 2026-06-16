@@ -151,7 +151,6 @@ export default function ControlPanel({
   setItemsPerRow
 }) {
   const [newItemName, setNewItemName] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
   const [bulkInput, setBulkInput] = useState('');
   const [showBulk, setShowBulk] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -281,15 +280,7 @@ export default function ControlPanel({
     setItems(items.filter(item => item.id !== id));
   };
 
-  // Filter items based on search query
-  const filteredItems = items.filter(item => {
-    const q = searchQuery.toLowerCase();
-    return (
-      item.name.en.toLowerCase().includes(q) ||
-      (item.name.hi && item.name.hi.toLowerCase().includes(q)) ||
-      (item.name.gu && item.name.gu.toLowerCase().includes(q))
-    );
-  });
+
 
   return (
     <div className="glass-panel no-print" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -546,22 +537,6 @@ export default function ControlPanel({
                 <RotateCcw size={12} /> {language === 'hi' ? 'सूची साफ़ करें' : language === 'gu' ? 'સૂચિ સાફ કરો' : 'Clear List'}
               </button>
 
-              {items.length < neededItemsCount && (
-                <div style={{
-                  display: 'flex',
-                  gap: '8px',
-                  alignItems: 'center',
-                  padding: '10px',
-                  borderRadius: '8px',
-                  backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                  border: '1px solid rgba(245, 158, 11, 0.3)',
-                  color: '#fbbf24',
-                  fontSize: '12px'
-                }}>
-                  <AlertTriangle size={16} style={{ flexShrink: 0 }} />
-                  <span>{t.needsItemsWarning(neededItemsCount)}{t.addWarningSuffix(neededItemsCount, items.length)}</span>
-                </div>
-              )}
 
               <div style={{ display: 'flex', gap: '8px' }}>
                 <button
@@ -624,24 +599,16 @@ export default function ControlPanel({
                 </form>
               )}
 
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={t.searchPlaceholder}
-                className="form-input"
-                style={{ padding: '6px 12px', fontSize: '13px' }}
-              />
-
               <div style={{
                 maxHeight: '220px',
                 overflowY: 'auto',
                 display: 'grid',
                 gridTemplateColumns: '1fr',
                 gap: '6px',
-                paddingRight: '4px'
+                paddingRight: '4px',
+                marginTop: '12px'
               }}>
-                {filteredItems.map((item) => (
+                {items.map((item) => (
                   <div
                     key={item.id}
                     style={{
@@ -673,9 +640,9 @@ export default function ControlPanel({
                     </button>
                   </div>
                 ))}
-                {filteredItems.length === 0 && (
+                {items.length === 0 && (
                   <div style={{ textAlign: 'center', padding: '20px 0', fontSize: '13px', color: 'var(--text-muted)' }}>
-                    {t.noItemsMatch}
+                    {language === 'hi' ? 'कोई आइटम नहीं' : language === 'gu' ? 'કોઈ વસ્તુ નથી' : 'No items in list'}
                   </div>
                 )}
               </div>
