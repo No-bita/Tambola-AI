@@ -35,7 +35,7 @@ const TRANSLATIONS = {
 
 export default function App() {
   const [language, setLanguage] = useState('en');
-  const [theme, setTheme] = useState('food');
+  const [theme, setTheme] = useState('custom');
   const [items, setItems] = useState([]);
   const [customTitle, setCustomTitle] = useState({ en: '', hi: '', gu: '' });
   const [ticketsCount, setTicketsCount] = useState(6);
@@ -120,11 +120,9 @@ export default function App() {
 
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
 
-  // Load default food theme on mount
+  // Initial state is empty custom theme
   useEffect(() => {
-    if (DEFAULT_THEMES.food) {
-      setItems([...DEFAULT_THEMES.food.items]);
-    }
+    setItems([]);
   }, []);
 
   // Update page title when language changes

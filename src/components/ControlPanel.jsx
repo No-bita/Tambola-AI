@@ -314,48 +314,43 @@ export default function ControlPanel({
       {/* Grid: Template + Language */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.themeLabel}</label>
-            <label htmlFor="theme-upload" style={{ fontSize: '11px', color: 'var(--accent-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '500' }}>
-              {t.uploadTheme}
-            </label>
-            <input
-              type="file"
-              id="theme-upload"
-              accept=".json"
-              style={{ display: 'none' }}
-              onChange={handleThemeUpload}
-            />
-          </div>
-          <select
-            value={theme}
-            onChange={(e) => {
-              const val = e.target.value;
-              setTheme(val);
-              if (DEFAULT_THEMES[val]) {
-                setItems([...DEFAULT_THEMES[val].items]);
-              } else {
-                setItems([]);
-                setIsModalOpen(true);
-              }
-              setCustomTitle({ en: '', hi: '', gu: '' }); // Reset override to fallback to translated title
+          <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.themeLabel}</label>
+          <input
+            type="file"
+            id="theme-upload"
+            accept=".json"
+            style={{ display: 'none' }}
+            onChange={handleThemeUpload}
+          />
+          <button
+            type="button"
+            onClick={() => document.getElementById('theme-upload').click()}
+            className="btn btn-secondary"
+            style={{
+              padding: '10px 14px',
+              fontSize: '13px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              width: '100%',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-primary)',
+              borderRadius: '8px',
+              cursor: 'pointer'
             }}
-            className="form-input"
           >
-            <option value="food">{t.themeFood}</option>
-            <option value="kitty">{t.themeKitty}</option>
-            <option value="custom">{t.themeCustom}</option>
-          </select>
-          {theme === 'custom' && (
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="btn btn-secondary"
-              style={{ padding: '6px 12px', fontSize: '11px', width: '100%', marginTop: '4px' }}
-            >
-              ✏️ {language === 'hi' ? 'सूची संपादित करें' : language === 'gu' ? 'સૂચિ સંપાદિત કરો' : 'Edit Item List'}
-            </button>
-          )}
+            📂 {language === 'hi' ? 'थीम अपलोड करें' : language === 'gu' ? 'થીમ અપલોડ કરો' : 'Upload Theme'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="btn btn-secondary"
+            style={{ padding: '6px 12px', fontSize: '11px', width: '100%', marginTop: '4px' }}
+          >
+            ✏️ {language === 'hi' ? 'सूची संपादित करें' : language === 'gu' ? 'સૂચિ સંપાદિત કરો' : 'Edit Item List'}
+          </button>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -557,15 +552,13 @@ export default function ControlPanel({
 
             {/* Modal Content */}
             <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '16px', paddingRight: '4px' }}>
-              {theme !== 'custom' && (
-                <button
-                  onClick={handleResetItems}
-                  style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', background: 'none', border: 'none', color: 'var(--accent-secondary)', cursor: 'pointer', alignSelf: 'flex-end' }}
-                  title="Reset items list"
-                >
-                  <RotateCcw size={12} /> {t.resetButton}
-                </button>
-              )}
+              <button
+                onClick={handleResetItems}
+                style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', background: 'none', border: 'none', color: 'var(--accent-secondary)', cursor: 'pointer', alignSelf: 'flex-end' }}
+                title="Clear items list"
+              >
+                <RotateCcw size={12} /> {language === 'hi' ? 'सूची साफ़ करें' : language === 'gu' ? 'સૂચિ સાફ કરો' : 'Clear List'}
+              </button>
 
               {items.length < neededItemsCount && (
                 <div style={{
