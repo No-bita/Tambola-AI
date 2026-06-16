@@ -292,10 +292,13 @@ export default function ControlPanel({
         </label>
         <input
           type="text"
-          value={customTitle.en || ''}
+          value={customTitle[language] || ''}
           onChange={(e) => {
             const val = e.target.value;
-            setCustomTitle({ en: val, hi: val, gu: val });
+            setCustomTitle(prev => ({
+              ...prev,
+              [language]: val
+            }));
           }}
           className="form-input"
           placeholder="e.g. rasoda"

@@ -40,7 +40,7 @@ export default function TicketGrid({
   theme,
   ticketStyle,
   customTitle,
-  customDesign,
+  customBgImage,
   setTickets,
   ticketsPerPage,
   rows,
