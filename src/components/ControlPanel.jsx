@@ -297,6 +297,7 @@ export default function ControlPanel({
         <input
           type="text"
           value={customTitle[language] || ''}
+          placeholder={language !== 'en' && customTitle.en ? customTitle.en : "e.g. rasoda"}
           onChange={(e) => {
             const val = e.target.value;
             setCustomTitle(prev => ({
@@ -305,7 +306,6 @@ export default function ControlPanel({
             }));
           }}
           className="form-input"
-          placeholder="e.g. rasoda"
         />
       </div>
 
