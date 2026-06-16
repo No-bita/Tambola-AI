@@ -7,7 +7,7 @@ const TRANSLATIONS = {
     configTitle: 'Configurator',
     configSub: 'Configure theme rules, item names and ticket layout.',
     customTitleLabel: 'Title',
-    themeLabel: 'Template',
+    themeLabel: 'Items',
     languageLabel: 'Language',
     ticketStyleLabel: 'Ticket Design',
     ticketsCountLabel: 'No. of Tickets',
@@ -47,7 +47,7 @@ const TRANSLATIONS = {
     configTitle: 'कॉन्फ़िगरेशन',
     configSub: 'थीम नियम, आइटम नाम और टिकट लेआउट सेट करें।',
     customTitleLabel: 'शीर्षक',
-    themeLabel: 'टेम्पलेट',
+    themeLabel: 'आइटम',
     languageLabel: 'भाषा',
     ticketStyleLabel: 'टिकट डिज़ाइन',
     ticketsCountLabel: 'टिकट संख्या',
@@ -87,7 +87,7 @@ const TRANSLATIONS = {
     configTitle: 'રૂપરેખાંકન',
     configSub: 'થીમ નિયમો, વસ્તુના નામ અને ટિકિટ લેઆઉટ સેટ કરો.',
     customTitleLabel: 'શીર્ષક',
-    themeLabel: 'ટેમ્પલેટ',
+    themeLabel: 'વસ્તુઓ',
     languageLabel: 'ભાષા',
     ticketStyleLabel: 'ટિકિટ ડિઝાઇન',
     ticketsCountLabel: 'ટિકિટ સંખ્યા',
@@ -311,20 +311,13 @@ export default function ControlPanel({
         />
       </div>
 
-      {/* Grid: Template + Language */}
+      {/* Grid: Items + Language */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.themeLabel}</label>
-          <input
-            type="file"
-            id="theme-upload"
-            accept=".json"
-            style={{ display: 'none' }}
-            onChange={handleThemeUpload}
-          />
           <button
             type="button"
-            onClick={() => document.getElementById('theme-upload').click()}
+            onClick={() => setIsModalOpen(true)}
             className="btn btn-secondary"
             style={{
               padding: '10px 14px',
@@ -338,18 +331,11 @@ export default function ControlPanel({
               border: '1px solid var(--border-color)',
               color: 'var(--text-primary)',
               borderRadius: '8px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              height: '42px'
             }}
           >
-            📂 {language === 'hi' ? 'थीम अपलोड करें' : language === 'gu' ? 'થીમ અપલોડ કરો' : 'Upload Theme'}
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsModalOpen(true)}
-            className="btn btn-secondary"
-            style={{ padding: '6px 12px', fontSize: '11px', width: '100%', marginTop: '4px' }}
-          >
-            ✏️ {language === 'hi' ? 'सूची संपादित करें' : language === 'gu' ? 'સૂચિ સંપાદિત કરો' : 'Edit Item List'}
+            ✏️ {language === 'hi' ? 'सूची संपादित करें' : language === 'gu' ? 'સૂચિ સંપાદિત કરો' : 'Edit Items'}
           </button>
         </div>
 
