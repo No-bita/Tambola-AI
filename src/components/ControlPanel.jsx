@@ -216,12 +216,13 @@ export default function ControlPanel({
     reader.readAsDataURL(file);
   };
 
-  // Handle bulk pasting of items
+  // Handle bulk pasting of items with case-insensitive duplicate check
   const handleBulkImport = () => {
     if (!bulkInput.trim()) return;
 
     const lines = bulkInput.split(/[,\n]/);
     const newItemsList = [];
+    const existingNames = new Set(items.map(item => item.name.en.trim().toLowerCase()));
 
     lines.forEach((line) => {
       const cleanLine = line.trim();
@@ -231,21 +232,24 @@ export default function ControlPanel({
 
       if (!nameStr) return;
 
-      newItemsList.push({
-        id: `custom-bulk-${Date.now()}-${Math.random()}`,
-        name: {
-          en: nameStr,
-          hi: nameStr,
-          gu: nameStr
-        }
-      });
+      const lowerName = nameStr.toLowerCase();
+      if (!existingNames.has(lowerName)) {
+        existingNames.add(lowerName);
+        newItemsList.push({
+          id: `custom-bulk-${Date.now()}-${Math.random()}`,
+          name: {
+            en: nameStr,
+            hi: nameStr,
+            gu: nameStr
+          }
+        });
+      }
     });
 
     if (newItemsList.length > 0) {
       setItems([...newItemsList, ...items]);
-      setBulkInput('');
-      setShowBulk(false);
     }
+    setBulkInput('');
   };
 
   // Handle adding a new item
@@ -541,66 +545,25 @@ export default function ControlPanel({
               </button>
 
 
-              <div style={{ display: 'flex', gap: '8px' }}>
+              <div className="glass-card" style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <textarea
+                  value={bulkInput}
+                  onChange={(e) => setBulkInput(e.target.value)}
+                  placeholder={t.bulkPlaceholder}
+                  className="form-input"
+                  rows="3"
+                  style={{ resize: 'vertical', fontSize: '13px', fontFamily: 'inherit' }}
+                />
                 <button
                   type="button"
-                  onClick={() => setShowBulk(false)}
-                  className={`btn ${!showBulk ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ flex: 1, padding: '6px 12px', fontSize: '12px' }}
+                  onClick={handleBulkImport}
+                  className="btn btn-primary"
+                  style={{ padding: '8px 12px', fontSize: '13px', width: '100%' }}
+                  disabled={!bulkInput.trim()}
                 >
-                  {t.addItemManual}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowBulk(true)}
-                  className={`btn ${showBulk ? 'btn-primary' : 'btn-secondary'}`}
-                  style={{ flex: 1, padding: '6px 12px', fontSize: '12px' }}
-                >
-                  {t.addItemBulk}
+                  {t.importBtn(bulkInput.split(/[,\n]/).filter(item => item.trim()).length || '')}
                 </button>
               </div>
-
-              {showBulk ? (
-                <div className="glass-card" style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <textarea
-                    value={bulkInput}
-                    onChange={(e) => setBulkInput(e.target.value)}
-                    placeholder={t.bulkPlaceholder}
-                    className="form-input"
-                    rows="3"
-                    style={{ resize: 'vertical', fontSize: '13px', fontFamily: 'inherit' }}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleBulkImport}
-                    className="btn btn-primary"
-                    style={{ padding: '8px 12px', fontSize: '13px', width: '100%' }}
-                    disabled={!bulkInput.trim()}
-                  >
-                    {t.importBtn(bulkInput.split(/[,\n]/).filter(item => item.trim()).length || '')}
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleAddItem} className="glass-card" style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <input
-                      type="text"
-                      value={newItemName}
-                      onChange={(e) => setNewItemName(e.target.value)}
-                      placeholder={language === 'hi' ? 'नाम' : language === 'gu' ? 'નામ' : 'Name'}
-                      className="form-input"
-                    />
-                    <button
-                      type="submit"
-                      disabled={!newItemName.trim()}
-                      className="btn btn-primary"
-                      style={{ padding: '0 12px', flexShrink: 0 }}
-                    >
-                      <Plus size={18} />
-                    </button>
-                  </div>
-                </form>
-              )}
 
               <div style={{
                 maxHeight: '220px',
