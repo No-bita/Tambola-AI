@@ -321,7 +321,7 @@ body {
   background: #ffffff url('./assets/floral_frame_bg.png') center/cover no-repeat !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
   color: #1e1a34 !important;
-  padding: 8% 10% !important; /* Frame padding to push all tables and text inside the floral borders */
+  padding: 8% 13% !important; /* Increased horizontal padding to push tables completely inside the leaves */
   box-sizing: border-box !important;
 }
 .theme-floral-garden .ticket-header {
