@@ -319,6 +319,50 @@ body {
   padding-right: 15% !important; /* Push footer text left to prevent overlapping bottom-right flowers */
 }
 
+/* 6. FLORAL GARDEN */
+.theme-floral-garden {
+  background: #ffffff url('./assets/floral_frame_bg.png') center/cover no-repeat !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  color: #1e1a34 !important;
+  padding: 8% 10% !important; /* Frame padding to push all tables and text inside the floral borders */
+  box-sizing: border-box !important;
+}
+.theme-floral-garden .ticket-header {
+  border-bottom: 2px solid rgba(30, 26, 52, 0.15) !important;
+  color: #1e1a34 !important;
+  margin-bottom: 8px !important;
+}
+.theme-floral-garden .ticket-title {
+  color: #b91c1c !important;
+}
+.theme-floral-garden .ticket-no {
+  color: #b91c1c !important;
+}
+.theme-floral-garden .ticket-cell {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(30, 26, 52, 0.15) !important;
+}
+.theme-floral-garden .ticket-cell.empty {
+  background-color: #ffffff !important;
+}
+.theme-floral-garden .ticket-cell.filled {
+  background-color: #ffffff !important;
+  color: #1e1a34 !important;
+  box-shadow: inset 0 0 0 1px rgba(30, 26, 52, 0.05) !important;
+}
+.theme-floral-garden .ticket-cell.filled.marked {
+  background-color: rgba(239, 68, 68, 0.35) !important;
+  color: #ffffff !important;
+  text-decoration: line-through;
+}
+.theme-floral-garden .ticket-meta {
+  color: #1e1a34 !important;
+  border-top: 1px solid rgba(30, 26, 52, 0.15) !important;
+}
+.theme-floral-garden .ticket-footer {
+  margin-top: 8px !important;
+}
+
 /* A4 Sheet Simulator Styling (Browser Preview) */
 .a4-container {
   display: flex;

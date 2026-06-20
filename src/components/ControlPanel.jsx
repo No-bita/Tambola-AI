@@ -30,6 +30,7 @@ const TRANSLATIONS = {
     skinFreshMint: '🍃 Fresh Mint',
     skinClassicRetro: '📜 Classic Retro',
     skinFloralQueen: '🌸 Floral Queen',
+    skinFloralGarden: '🌸 Floral Garden',
     itemsStatus: (count, needed) => `${count} Items (${count >= needed ? 'Valid' : `Needs ${needed}`})`,
     importBtn: (count) => `Import ${count} Items`,
     bulkPlaceholder: 'Paste items separated by commas or lines, e.g.:\nDosa, Jalebi, Samosa, Dhokla',
@@ -71,6 +72,7 @@ const TRANSLATIONS = {
     skinFreshMint: '🍃 फ्रेश मिंट',
     skinClassicRetro: '📜 क्लासिक रेट्रो',
     skinFloralQueen: '🌸 फ्लोरल क्वीन',
+    skinFloralGarden: '🌸 फ्लोरल गार्डन',
     itemsStatus: (count, needed) => `${count} आइटम (${count >= needed ? 'वैध' : `आवश्यकता ${needed}`})`,
     importBtn: (count) => `${count} आइटम आयात करें`,
     bulkPlaceholder: 'अल्पविराम या नई लाइनों द्वारा अलग किए गए आइटम पेस्ट करें, जैसे:\nडोसा, जलेबी, समोसा, ढोकला',
@@ -112,6 +114,7 @@ const TRANSLATIONS = {
     skinFreshMint: '🍃 ફ્રેશ મિન્ટ',
     skinClassicRetro: '📜 ક્લાસિક રેટ્રો',
     skinFloralQueen: '🌸 ફ્લોરલ ક્વીન',
+    skinFloralGarden: '🌸 ફ્લોરલ ગાર્ડન',
     itemsStatus: (count, needed) => `${count} વસ્તુઓ (${count >= needed ? 'માન્ય' : `જરૂર છે ${needed}`})`,
     importBtn: (count) => `${count} વસ્તુઓ આયાત કરો`,
     bulkPlaceholder: 'અલ્પવિરામ અથવા પંક્તિઓ દ્વારા અલગ કરેલી વસ્તુઓ પેસ્ટ કરો, જેમ કે:\nઢોસા, જલેબી, સમોસા, ઢોકળા',
@@ -445,6 +448,7 @@ export default function ControlPanel({
             <option value="fresh-mint">{t.skinFreshMint}</option>
             <option value="classic-retro">{t.skinClassicRetro}</option>
             <option value="floral-queen">{t.skinFloralQueen}</option>
+            <option value="floral-garden">{t.skinFloralGarden}</option>
             {customBgImage && (
               <option value="custom-image-bg">
                 🖼️ {language === 'hi' ? 'कस्टम बैकग्राउंड' : language === 'gu' ? 'કસ્ટમ બેકગ્રાઉન્ડ' : 'Custom Background'}
