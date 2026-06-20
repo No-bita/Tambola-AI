@@ -280,11 +280,12 @@ body {
 /* 5. FLORAL QUEEN */
 .theme-floral-queen {
   background: #ffffff url('./assets/floral_theme_bg.png') center/cover no-repeat !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
+  border: none !important;
+  box-shadow: none !important;
   color: #1e1a34 !important;
 }
 .theme-floral-queen .ticket-header {
-  border-bottom: 2px solid rgba(30, 26, 52, 0.15) !important;
+  border-bottom: 1.5px solid rgba(30, 26, 52, 0.08) !important;
   color: #1e1a34 !important;
 }
 .theme-floral-queen .ticket-title {
@@ -295,7 +296,7 @@ body {
 }
 .theme-floral-queen .ticket-cell {
   background-color: #ffffff !important; /* Solid white background for all cells to prevent overlap with background flowers */
-  border: 1px solid rgba(30, 26, 52, 0.15) !important;
+  border: 1px solid rgba(30, 26, 52, 0.06) !important;
 }
 .theme-floral-queen .ticket-cell.empty {
   background-color: #ffffff !important; /* Force empty cells to be solid white as well */
@@ -303,7 +304,7 @@ body {
 .theme-floral-queen .ticket-cell.filled {
   background-color: #ffffff !important;
   color: #1e1a34 !important;
-  box-shadow: inset 0 0 0 1px rgba(30, 26, 52, 0.05) !important;
+  box-shadow: inset 0 0 0 1px rgba(30, 26, 52, 0.03) !important;
 }
 .theme-floral-queen .ticket-cell.filled.marked {
   background-color: rgba(239, 68, 68, 0.35) !important;
@@ -312,20 +313,21 @@ body {
 }
 .theme-floral-queen .ticket-meta {
   color: #1e1a34 !important;
-  border-top: 1px solid rgba(30, 26, 52, 0.15) !important;
+  border-top: 1px solid rgba(30, 26, 52, 0.08) !important;
 }
 
 
 /* 6. FLORAL GARDEN */
 .theme-floral-garden {
   background: #ffffff url('./assets/floral_frame_bg.png') center/cover no-repeat !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
+  border: none !important;
+  box-shadow: none !important;
   color: #1e1a34 !important;
   padding: 4% 13% !important; /* Reduced vertical padding from 8% to 4% to save wasted space */
   box-sizing: border-box !important;
 }
 .theme-floral-garden .ticket-header {
-  border-bottom: 2px solid rgba(30, 26, 52, 0.15) !important;
+  border-bottom: 1.5px solid rgba(30, 26, 52, 0.08) !important;
   color: #1e1a34 !important;
   margin-bottom: 8px !important;
 }
@@ -334,11 +336,11 @@ body {
 }
 .theme-floral-garden .ticket-no {
   color: #b91c1c !important;
-  right: 10% !important; /* Shift card number to the left to prevent overlap with top-right flowers */
+  right: 14% !important; /* Shift card number to the left to prevent overlap with top-right flowers */
 }
 .theme-floral-garden .ticket-cell {
   background-color: #ffffff !important;
-  border: 1px solid rgba(30, 26, 52, 0.15) !important;
+  border: 1px solid rgba(30, 26, 52, 0.06) !important;
 }
 .theme-floral-garden .ticket-cell.empty {
   background-color: #ffffff !important;
@@ -346,7 +348,7 @@ body {
 .theme-floral-garden .ticket-cell.filled {
   background-color: #ffffff !important;
   color: #1e1a34 !important;
-  box-shadow: inset 0 0 0 1px rgba(30, 26, 52, 0.05) !important;
+  box-shadow: inset 0 0 0 1px rgba(30, 26, 52, 0.03) !important;
 }
 .theme-floral-garden .ticket-cell.filled.marked {
   background-color: rgba(239, 68, 68, 0.35) !important;
@@ -355,7 +357,7 @@ body {
 }
 .theme-floral-garden .ticket-meta {
   color: #1e1a34 !important;
-  border-top: 1px solid rgba(30, 26, 52, 0.15) !important;
+  border-top: 1px solid rgba(30, 26, 52, 0.08) !important;
 }
 .theme-floral-garden .ticket-footer {
   margin-top: 8px !important;
