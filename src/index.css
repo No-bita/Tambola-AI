@@ -277,6 +277,39 @@ body {
   border-top: 1px dashed #3e2723 !important;
 }
 
+/* 5. FLORAL QUEEN */
+.theme-floral-queen {
+  background: #ffffff url('./assets/floral_theme_bg.png') center/cover no-repeat !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  color: #1e1a34 !important;
+}
+.theme-floral-queen .ticket-header {
+  border-bottom: 2px solid rgba(30, 26, 52, 0.15) !important;
+  color: #1e1a34 !important;
+}
+.theme-floral-queen .ticket-title {
+  color: #b91c1c !important;
+}
+.theme-floral-queen .ticket-no {
+  color: #b91c1c !important;
+}
+.theme-floral-queen .ticket-cell {
+  border: 1px solid rgba(30, 26, 52, 0.15) !important;
+}
+.theme-floral-queen .ticket-cell.filled {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #1e1a34 !important;
+}
+.theme-floral-queen .ticket-cell.filled.marked {
+  background: rgba(239, 68, 68, 0.35) !important;
+  color: #ffffff !important;
+  text-decoration: line-through;
+}
+.theme-floral-queen .ticket-meta {
+  color: #1e1a34 !important;
+  border-top: 1px solid rgba(30, 26, 52, 0.15) !important;
+}
+
 /* A4 Sheet Simulator Styling (Browser Preview) */
 .a4-container {
   display: flex;
@@ -363,7 +396,7 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   justify-content: unset;
-  align-items: stretch;
+  align-items: center; /* Center vertically to prevent stretching */
   padding: 4% 4%;
   gap: 3%;
 }
@@ -384,7 +417,7 @@ body {
   font-size: 9px;
 }
 .a4-page.a4-grid-4 .ticket-cell {
-  aspect-ratio: 1.8 / 1;
+  aspect-ratio: 1.6 / 1; /* Slightly taller aspect-ratio to prevent clipping */
   padding: 2px;
 }
 
@@ -394,7 +427,7 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   justify-content: unset;
-  align-items: stretch;
+  align-items: center; /* Center vertically to prevent stretching */
   padding: 3% 3%;
   gap: 2.5%;
 }
@@ -417,7 +450,7 @@ body {
   line-height: 1.15;
 }
 .a4-page.a4-grid-6 .ticket-cell {
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 1.6 / 1; /* Taller aspect-ratio to prevent text wrapping/clipping */
   padding: 1px;
 }
 
