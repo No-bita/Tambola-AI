@@ -401,9 +401,9 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   justify-content: unset;
-  align-items: center; /* Center vertically to prevent stretching */
-  padding: 4% 4%;
-  gap: 3%;
+  align-items: center; /* Center vertically within grid quadrants for cut-symmetry */
+  padding: 3.5% 3.5%; /* Reduced outer padding to maximize ticket width */
+  gap: 2.5%; /* Tightened gaps to give more space for ticket size */
 }
 .a4-page.a4-grid-4 .ticket-wrapper {
   padding: 10px;
@@ -422,7 +422,7 @@ body {
   font-size: 9px;
 }
 .a4-page.a4-grid-4 .ticket-cell {
-  aspect-ratio: 1.6 / 1; /* Slightly taller aspect-ratio to prevent clipping */
+  aspect-ratio: 1.6 / 1;
   padding: 2px;
 }
 
@@ -432,9 +432,9 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   justify-content: unset;
-  align-items: center; /* Center vertically to prevent stretching */
-  padding: 3% 3%;
-  gap: 2.5%;
+  align-items: center; /* Center vertically within grid sixths for cut-symmetry */
+  padding: 3% 3%; /* Reduced padding to maximize ticket width */
+  gap: 2%; /* Tightened gaps to give more space for ticket size */
 }
 .a4-page.a4-grid-6 .ticket-wrapper {
   padding: 8px;
@@ -455,7 +455,7 @@ body {
   line-height: 1.15;
 }
 .a4-page.a4-grid-6 .ticket-cell {
-  aspect-ratio: 1.6 / 1; /* Taller aspect-ratio to prevent text wrapping/clipping */
+  aspect-ratio: 1.6 / 1;
   padding: 1px;
 }
 
@@ -473,12 +473,12 @@ body {
   gap: 24px !important;
 }
 .export-mode .a4-page.a4-grid-4 {
-  padding: 30px 30px !important;
-  gap: 24px !important;
+  padding: 24px 24px !important; /* Optimized padding for export canvas */
+  gap: 20px !important; /* Optimized gaps for export canvas */
 }
 .export-mode .a4-page.a4-grid-6 {
-  padding: 20px 24px !important;
-  gap: 16px !important;
+  padding: 16px 16px !important; /* Optimized padding for export canvas */
+  gap: 12px !important; /* Optimized gaps for export canvas */
 }
 
 @media (max-width: 900px) {
