@@ -199,7 +199,10 @@ export default function TicketGrid({
                     )}
                   </div>
 
-
+                  {/* Ticket Footer */}
+                  <div className="ticket-footer">
+                    Made with <span className="ticket-footer-heart">❤️</span> by Falguni Shah | 9821881964
+                  </div>
 
                 </div>
               );
