@@ -410,35 +410,48 @@ body {
 
 /* 2 tickets per page (default) - stacked vertically */
 .a4-page.a4-grid-2 {
-  justify-content: center;
-  padding: 6% 6%;
-  gap: 5%;
+  justify-content: space-around; /* Distribute tickets evenly along vertical axis */
+  padding: 8% 6%;
+}
+.a4-page.a4-grid-2 .ticket-wrapper {
+  padding: 20px;
+}
+.a4-page.a4-grid-2 .ticket-title {
+  font-size: 18px;
+}
+.a4-page.a4-grid-2 .ticket-no {
+  font-size: 13px;
+}
+.a4-page.a4-grid-2 .cell-name {
+  font-size: 13px;
+}
+.a4-page.a4-grid-2 .ticket-cell {
+  aspect-ratio: 1.35 / 1; /* Slightly taller aspect-ratio to optimize space usage */
 }
 
 /* 3 tickets per page - tighter spacing */
 .a4-page.a4-grid-3 {
-  justify-content: flex-start;
-  padding: 4% 5%;
-  gap: 3%;
+  justify-content: space-around; /* Distribute tickets evenly along vertical axis to prevent empty space at bottom */
+  padding: 5% 5%;
 }
 .a4-page.a4-grid-3 .ticket-wrapper {
-  padding: 14px;
+  padding: 16px;
 }
 .a4-page.a4-grid-3 .ticket-header {
   margin-bottom: 6px;
   padding-bottom: 4px;
 }
 .a4-page.a4-grid-3 .ticket-title {
-  font-size: 14px;
+  font-size: 16px; /* Increased font-size */
 }
 .a4-page.a4-grid-3 .ticket-no {
-  font-size: 11px;
+  font-size: 12px;
 }
 .a4-page.a4-grid-3 .cell-name {
-  font-size: 11px;
+  font-size: 12px; /* Increased cell name size for readability */
 }
 .a4-page.a4-grid-3 .ticket-cell {
-  aspect-ratio: 1.6 / 1;
+  aspect-ratio: 1.45 / 1; /* Taller aspect-ratio to optimize empty space usage */
 }
 
 /* 4 tickets per page - 2x2 grid */
@@ -511,12 +524,14 @@ body {
   gap: 0 !important;
 }
 .export-mode .a4-page.a4-grid-2 {
-  padding: 50px 48px !important;
-  gap: 40px !important;
+  padding: 60px 48px !important;
+  justify-content: space-around !important;
+  gap: 0 !important;
 }
 .export-mode .a4-page.a4-grid-3 {
-  padding: 30px 40px !important;
-  gap: 24px !important;
+  padding: 40px 40px !important;
+  justify-content: space-around !important;
+  gap: 0 !important;
 }
 .export-mode .a4-page.a4-grid-4 {
   padding: 24px 24px !important; /* Optimized padding for export canvas */
