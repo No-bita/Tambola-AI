@@ -697,15 +697,15 @@ body {
 /* Ticket Footer Styling */
 .ticket-footer {
   margin-top: 8px;
-  text-align: center;
-  font-size: 10px;
+  text-align: right;
+  font-size: 12px;
   opacity: 0.75;
   font-weight: 500;
   letter-spacing: 0.5px;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 3px;
   line-height: 1;
 }
@@ -717,17 +717,17 @@ body {
 
 /* Scaled Ticket Footer sizes for grids */
 .a4-page.a4-grid-3 .ticket-footer {
-  font-size: 8px;
+  font-size: 10px;
   margin-top: 5px;
 }
 
 .a4-page.a4-grid-4 .ticket-footer {
-  font-size: 7px;
+  font-size: 9px;
   margin-top: 4px;
 }
 
 .a4-page.a4-grid-6 .ticket-footer {
-  font-size: 6px;
+  font-size: 8px;
   margin-top: 3px;
 }
 
