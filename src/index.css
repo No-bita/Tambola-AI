@@ -321,7 +321,7 @@ body {
   background: #ffffff url('./assets/floral_frame_bg.png') center/cover no-repeat !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
   color: #1e1a34 !important;
-  padding: 8% 13% !important; /* Increased horizontal padding to push tables completely inside the leaves */
+  padding: 4% 13% !important; /* Reduced vertical padding from 8% to 4% to save wasted space */
   box-sizing: border-box !important;
 }
 .theme-floral-garden .ticket-header {
@@ -334,6 +334,7 @@ body {
 }
 .theme-floral-garden .ticket-no {
   color: #b91c1c !important;
+  right: 10% !important; /* Shift card number to the left to prevent overlap with top-right flowers */
 }
 .theme-floral-garden .ticket-cell {
   background-color: #ffffff !important;
