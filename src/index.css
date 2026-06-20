@@ -286,7 +286,6 @@ body {
 .theme-floral-queen .ticket-header {
   border-bottom: 2px solid rgba(30, 26, 52, 0.15) !important;
   color: #1e1a34 !important;
-  padding-left: 15% !important; /* Leave space to prevent title overlapping top-left flowers */
 }
 .theme-floral-queen .ticket-title {
   color: #b91c1c !important;
@@ -315,9 +314,7 @@ body {
   color: #1e1a34 !important;
   border-top: 1px solid rgba(30, 26, 52, 0.15) !important;
 }
-.theme-floral-queen .ticket-footer {
-  padding-right: 15% !important; /* Push footer text left to prevent overlapping bottom-right flowers */
-}
+
 
 /* 6. FLORAL GARDEN */
 .theme-floral-garden {
@@ -570,8 +567,9 @@ body {
 
 .ticket-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
   margin-bottom: 12px;
   padding-bottom: 6px;
 }
@@ -581,9 +579,12 @@ body {
   font-weight: 800;
   letter-spacing: 0.75px;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .ticket-no {
+  position: absolute;
+  right: 0;
   font-size: 13px;
   font-weight: bold;
   opacity: 0.8;
@@ -783,7 +784,7 @@ body {
 /* Ticket Footer Styling */
 .ticket-footer {
   margin-top: 8px;
-  text-align: right;
+  text-align: center;
   font-size: 12px;
   opacity: 0.75;
   font-weight: 500;
@@ -791,7 +792,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 3px;
   line-height: 1;
 }
