@@ -286,6 +286,7 @@ body {
 .theme-floral-queen .ticket-header {
   border-bottom: 2px solid rgba(30, 26, 52, 0.15) !important;
   color: #1e1a34 !important;
+  padding-left: 15% !important; /* Leave space to prevent title overlapping top-left flowers */
 }
 .theme-floral-queen .ticket-title {
   color: #b91c1c !important;
@@ -297,8 +298,9 @@ body {
   border: 1px solid rgba(30, 26, 52, 0.15) !important;
 }
 .theme-floral-queen .ticket-cell.filled {
-  background: rgba(255, 255, 255, 0.85) !important;
+  background: #ffffff !important; /* Solid white background so item name is clearly readable */
   color: #1e1a34 !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
 }
 .theme-floral-queen .ticket-cell.filled.marked {
   background: rgba(239, 68, 68, 0.35) !important;
@@ -308,6 +310,9 @@ body {
 .theme-floral-queen .ticket-meta {
   color: #1e1a34 !important;
   border-top: 1px solid rgba(30, 26, 52, 0.15) !important;
+}
+.theme-floral-queen .ticket-footer {
+  padding-right: 15% !important; /* Push footer text left to prevent overlapping bottom-right flowers */
 }
 
 /* A4 Sheet Simulator Styling (Browser Preview) */
