@@ -141,6 +141,8 @@ export default function App() {
         newTickets.push(ticket);
       } catch (err) {
         console.error('Failed to generate ticket:', err);
+        alert(`Failed to generate ticket: ${err.message}`);
+        break;
       }
     }
     setTickets(newTickets);

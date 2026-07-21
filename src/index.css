@@ -842,3 +842,17 @@ body {
   margin-top: 3px;
 }
 
+@keyframes shake-and-highlight {
+  0% { transform: translateX(0); box-shadow: 0 0 0px var(--primary-color); }
+  25% { transform: translateX(-5px); box-shadow: 0 0 10px var(--primary-color); }
+  50% { transform: translateX(5px); box-shadow: 0 0 20px var(--primary-color); }
+  75% { transform: translateX(-5px); box-shadow: 0 0 10px var(--primary-color); }
+  100% { transform: translateX(0); box-shadow: 0 0 0px var(--primary-color); }
+}
+
+.shake-animation {
+  animation: shake-and-highlight 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+}
+

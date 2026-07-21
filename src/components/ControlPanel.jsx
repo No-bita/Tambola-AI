@@ -160,6 +160,7 @@ export default function ControlPanel({
   const [bulkInput, setBulkInput] = useState('');
   const [showBulk, setShowBulk] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [highlightAddBtn, setHighlightAddBtn] = useState(false);
 
   const neededItemsCount = rows * itemsPerRow;
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
@@ -322,7 +323,7 @@ export default function ControlPanel({
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="btn btn-secondary"
+            className={`btn btn-secondary ${highlightAddBtn ? 'shake-animation' : ''}`}
             style={{
               padding: '10px 14px',
               fontSize: '13px',
@@ -491,8 +492,16 @@ export default function ControlPanel({
 
       {/* Main Generate Button */}
       <button
-        onClick={onGenerate}
-        disabled={items.length < neededItemsCount}
+        onClick={(e) => {
+          if (items.length < neededItemsCount) {
+            e.preventDefault();
+            alert(t.needsItemsWarning(neededItemsCount));
+            setHighlightAddBtn(true);
+            setTimeout(() => setHighlightAddBtn(false), 800);
+            return;
+          }
+          onGenerate();
+        }}
         className="btn btn-primary"
         style={{
           width: '100%',

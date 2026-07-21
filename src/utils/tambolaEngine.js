@@ -96,6 +96,12 @@ export function generateTicket(items, ticketIndex, rows = 3, columns = 9, itemsP
   if (items.length < minNeeded) {
     throw new Error(`Must have at least ${minNeeded} items to generate this ticket.`);
   }
+  if (itemsPerRow > columns) {
+    throw new Error(`Items per row (${itemsPerRow}) cannot exceed number of columns (${columns}).`);
+  }
+  if (rows * itemsPerRow < columns) {
+    throw new Error(`Total items per ticket (${rows * itemsPerRow}) must be at least the number of columns (${columns}) so no column is empty.`);
+  }
 
   // Shuffle items and take exactly rows * itemsPerRow unique items
   const shuffledItems = shuffleArray(items).slice(0, minNeeded);
