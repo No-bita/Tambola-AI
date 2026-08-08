@@ -44,7 +44,8 @@ export default function TicketGrid({
   setTickets,
   ticketsPerPage,
   rows,
-  columns
+  columns,
+  fontSizeScale
 }) {
   const perPage = ticketsPerPage || 2;
   const [markedCells, setMarkedCells] = useState({}); // { [ticketId-row-col]: boolean }
@@ -122,7 +123,20 @@ export default function TicketGrid({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
       {/* Grid styling based on tickets density */}
-      <div className="print-area" ref={containerRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%', overflowX: 'hidden', padding: '10px 0' }}>
+      <div
+        className="print-area"
+        ref={containerRef}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px',
+          width: '100%',
+          overflowX: 'hidden',
+          padding: '10px 0',
+          '--ticket-font-scale': fontSizeScale || '1'
+        }}
+      >
         {pages.map((pageTickets, pageIdx) => (
           <div
             key={pageIdx}

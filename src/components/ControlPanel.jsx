@@ -43,7 +43,11 @@ const TRANSLATIONS = {
     uploadTheme: '📂 Upload',
     uploadInvalid: 'Invalid JSON format. Must contain a "name" object and an "items" array.',
     uploadDesign: '📂 Upload',
-    uploadDesignInvalid: 'Invalid file format. Please upload a valid PNG, JPG, or JPEG image.'
+    uploadDesignInvalid: 'Invalid file format. Please upload a valid PNG, JPG, or JPEG image.',
+    fontSizeLabel: 'Font Size',
+    fontSizeNormal: 'Normal (100%)',
+    fontSizeLarge: 'Large (115%)',
+    fontSizeXLarge: 'Extra Large (130%)'
   },
   hi: {
     configTitle: 'कॉन्फ़िगरेशन',
@@ -85,7 +89,11 @@ const TRANSLATIONS = {
     uploadTheme: '📂 अपलोड करें',
     uploadInvalid: 'अमान्य JSON प्रारूप। इसमें "name" ऑब्जेक्ट और "items" एरे होना चाहिए।',
     uploadDesign: '📂 अपलोड करें',
-    uploadDesignInvalid: 'अमान्य फ़ाइल प्रारूप। कृपया एक वैध PNG, JPG, या JPEG इमेज अपलोड करें।'
+    uploadDesignInvalid: 'अमान्य फ़ाइल प्रारूप। कृपया एक वैध PNG, JPG, या JPEG इमेज अपलोड करें।',
+    fontSizeLabel: 'फ़ॉन्ट आकार',
+    fontSizeNormal: 'सामान्य (100%)',
+    fontSizeLarge: 'बड़ा (115%)',
+    fontSizeXLarge: 'अति बड़ा (130%)'
   },
   gu: {
     configTitle: 'રૂપરેખાંકન',
@@ -127,7 +135,11 @@ const TRANSLATIONS = {
     uploadTheme: '📂 અપલોડ કરો',
     uploadInvalid: 'અમાન્ય JSON ફોર્મેટ. તેમાં "name" ઓબ્જેક્ટ અને "items" એરે હોવું આવશ્યક છે.',
     uploadDesign: '📂 અપલોડ કરો',
-    uploadDesignInvalid: 'અમાન્ય ફાઇલ ફોર્મેટ. કૃપા કરીને માન્ય PNG, JPG, અથવા JPEG ઇમેજ અપલોડ કરો.'
+    uploadDesignInvalid: 'અમાન્ય ફાઇલ ફોર્મેટ. કૃપા કરીને માન્ય PNG, JPG, અથવા JPEG ઇમેજ અપલોડ કરો.',
+    fontSizeLabel: 'ફોન્ટ કદ',
+    fontSizeNormal: 'સામાન્ય (100%)',
+    fontSizeLarge: 'મોટું (115%)',
+    fontSizeXLarge: 'ખૂબ મોટું (130%)'
   }
 };
 
@@ -154,7 +166,9 @@ export default function ControlPanel({
   columns,
   setColumns,
   itemsPerRow,
-  setItemsPerRow
+  setItemsPerRow,
+  fontSizeScale,
+  setFontSizeScale
 }) {
   const [newItemName, setNewItemName] = useState('');
   const [bulkInput, setBulkInput] = useState('');
@@ -488,6 +502,22 @@ export default function ControlPanel({
             <option value={3}>3</option>
           </select>
         </div>
+      </div>
+
+      {/* Font Size Scale Option */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>
+          {t.fontSizeLabel}
+        </label>
+        <select
+          value={fontSizeScale || '1'}
+          onChange={(e) => setFontSizeScale(e.target.value)}
+          className="form-input"
+        >
+          <option value="1">{t.fontSizeNormal}</option>
+          <option value="1.15">{t.fontSizeLarge}</option>
+          <option value="1.3">{t.fontSizeXLarge}</option>
+        </select>
       </div>
 
       {/* Main Generate Button */}

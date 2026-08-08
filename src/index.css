@@ -403,6 +403,10 @@ body {
 
 /* ===== Grid density variants for tickets per page ===== */
 
+.print-area {
+  --ticket-font-scale: 1;
+}
+
 /* 1 ticket per page - large, centered */
 .a4-page.a4-grid-1 {
   justify-content: center;
@@ -412,6 +416,15 @@ body {
 .a4-page.a4-grid-1 .ticket-wrapper {
   padding: 24px;
 }
+.a4-page.a4-grid-1 .ticket-title {
+  font-size: calc(24px * var(--ticket-font-scale, 1));
+}
+.a4-page.a4-grid-1 .ticket-no {
+  font-size: calc(16px * var(--ticket-font-scale, 1));
+}
+.a4-page.a4-grid-1 .cell-name {
+  font-size: calc(17px * var(--ticket-font-scale, 1));
+}
 .a4-page.a4-grid-1 .ticket-cell {
   aspect-ratio: 1.25 / 1; /* Taller cells to fill space */
 }
@@ -419,19 +432,19 @@ body {
 /* 2 tickets per page (default) - stacked vertically */
 .a4-page.a4-grid-2 {
   justify-content: space-around; /* Distribute tickets evenly along vertical axis */
-  padding: 6% 3%; /* Reduced horizontal padding to expand ticket width */
+  padding: 5% 3%; /* Reduced horizontal padding to expand ticket width */
 }
 .a4-page.a4-grid-2 .ticket-wrapper {
   padding: 20px;
 }
 .a4-page.a4-grid-2 .ticket-title {
-  font-size: 18px;
+  font-size: calc(20px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-2 .ticket-no {
-  font-size: 13px;
+  font-size: calc(14px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-2 .cell-name {
-  font-size: 13px;
+  font-size: calc(15px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-2 .ticket-cell {
   aspect-ratio: 1.25 / 1; /* Taller cells to expand ticket height */
@@ -440,7 +453,7 @@ body {
 /* 3 tickets per page - tighter spacing */
 .a4-page.a4-grid-3 {
   justify-content: space-around; /* Distribute tickets evenly along vertical axis to prevent empty space at bottom */
-  padding: 4% 3%; /* Reduced horizontal padding to expand ticket width */
+  padding: 3.5% 3%; /* Reduced horizontal padding to expand ticket width */
 }
 .a4-page.a4-grid-3 .ticket-wrapper {
   padding: 16px;
@@ -450,13 +463,13 @@ body {
   padding-bottom: 4px;
 }
 .a4-page.a4-grid-3 .ticket-title {
-  font-size: 16px;
+  font-size: calc(18px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-3 .ticket-no {
-  font-size: 12px;
+  font-size: calc(13px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-3 .cell-name {
-  font-size: 12px;
+  font-size: calc(13.5px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-3 .ticket-cell {
   aspect-ratio: 1.35 / 1; /* Taller cells to expand ticket height */
@@ -469,8 +482,8 @@ body {
   grid-template-rows: 1fr 1fr;
   justify-content: unset;
   align-items: center; /* Center vertically within grid quadrants for cut-symmetry */
-  padding: 3.5% 3.5%; /* Reduced outer padding to maximize ticket width */
-  gap: 2.5%; /* Tightened gaps to give more space for ticket size */
+  padding: 3% 3%; /* Reduced outer padding to maximize ticket width */
+  gap: 2%; /* Tightened gaps to give more space for ticket size */
 }
 .a4-page.a4-grid-4 .ticket-wrapper {
   padding: 10px;
@@ -480,13 +493,13 @@ body {
   padding-bottom: 3px;
 }
 .a4-page.a4-grid-4 .ticket-title {
-  font-size: 12px;
+  font-size: calc(14px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-4 .ticket-no {
-  font-size: 10px;
+  font-size: calc(11px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-4 .cell-name {
-  font-size: 9px;
+  font-size: calc(11.5px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-4 .ticket-cell {
   aspect-ratio: 1.6 / 1;
@@ -500,8 +513,8 @@ body {
   grid-template-rows: 1fr 1fr 1fr;
   justify-content: unset;
   align-items: center; /* Center vertically within grid sixths for cut-symmetry */
-  padding: 3% 3%; /* Reduced padding to maximize ticket width */
-  gap: 2%; /* Tightened gaps to give more space for ticket size */
+  padding: 2.5% 2.5%; /* Reduced padding to maximize ticket width */
+  gap: 1.5%; /* Tightened gaps to give more space for ticket size */
 }
 .a4-page.a4-grid-6 .ticket-wrapper {
   padding: 8px;
@@ -511,14 +524,14 @@ body {
   padding-bottom: 2px;
 }
 .a4-page.a4-grid-6 .ticket-title {
-  font-size: 10px;
+  font-size: calc(12px * var(--ticket-font-scale, 1));
   letter-spacing: 0.3px;
 }
 .a4-page.a4-grid-6 .ticket-no {
-  font-size: 8px;
+  font-size: calc(9.5px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-6 .cell-name {
-  font-size: 7px;
+  font-size: calc(9.5px * var(--ticket-font-scale, 1));
   line-height: 1.15;
 }
 .a4-page.a4-grid-6 .ticket-cell {
@@ -528,26 +541,26 @@ body {
 
 /* Export mode density overrides */
 .export-mode .a4-page.a4-grid-1 {
-  padding: 80px 48px !important;
+  padding: 60px 36px !important;
   gap: 0 !important;
 }
 .export-mode .a4-page.a4-grid-2 {
-  padding: 60px 48px !important;
+  padding: 40px 36px !important;
   justify-content: space-around !important;
   gap: 0 !important;
 }
 .export-mode .a4-page.a4-grid-3 {
-  padding: 40px 40px !important;
+  padding: 30px 30px !important;
   justify-content: space-around !important;
   gap: 0 !important;
 }
 .export-mode .a4-page.a4-grid-4 {
-  padding: 24px 24px !important; /* Optimized padding for export canvas */
-  gap: 20px !important; /* Optimized gaps for export canvas */
+  padding: 18px 18px !important; /* Optimized padding for export canvas */
+  gap: 16px !important; /* Optimized gaps for export canvas */
 }
 .export-mode .a4-page.a4-grid-6 {
-  padding: 16px 16px !important; /* Optimized padding for export canvas */
-  gap: 12px !important; /* Optimized gaps for export canvas */
+  padding: 12px 12px !important; /* Optimized padding for export canvas */
+  gap: 10px !important; /* Optimized gaps for export canvas */
 }
 
 @media (max-width: 900px) {
@@ -668,7 +681,6 @@ body {
 .export-mode .cell-name {
   overflow: visible !important;
   max-height: none !important;
-  font-size: 11px !important;
 }
 
 .export-mode .ticket-wrapper {
@@ -710,9 +722,9 @@ body {
   .a4-page {
     width: 210mm !important;
     height: 297mm !important;
-    padding: 15mm 20mm !important;
+    padding: 8mm 10mm !important;
     justify-content: center !important;
-    gap: 15mm !important;
+    gap: 8mm !important;
     margin: 0 !important;
     box-shadow: none !important;
     border-radius: 0 !important;
@@ -720,6 +732,12 @@ body {
     page-break-after: always !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+  .cell-name {
+    font-weight: 800 !important;
+  }
+  .ticket-title {
+    font-weight: 900 !important;
   }
   /* Ensure backgrounds render correctly in print */
   * {

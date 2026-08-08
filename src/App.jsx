@@ -46,6 +46,7 @@ export default function App() {
   const [columns, setColumns] = useState(9);
   const [itemsPerRow, setItemsPerRow] = useState(5);
   const [ticketsPerPage, setTicketsPerPage] = useState(2);
+  const [fontSizeScale, setFontSizeScale] = useState('1');
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
 
@@ -239,6 +240,8 @@ export default function App() {
             setColumns={setColumns}
             itemsPerRow={itemsPerRow}
             setItemsPerRow={setItemsPerRow}
+            fontSizeScale={fontSizeScale}
+            setFontSizeScale={setFontSizeScale}
           />
         </div>
 
@@ -256,6 +259,7 @@ export default function App() {
               ticketsPerPage={ticketsPerPage}
               rows={rows}
               columns={columns}
+              fontSizeScale={fontSizeScale}
             />
           ) : (
             <div style={{
