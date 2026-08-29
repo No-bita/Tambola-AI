@@ -73,6 +73,68 @@ export const DEFAULT_THEMES = {
       { id: 'k29', emoji: '📸', name: { en: 'Photo Booth', hi: 'फोटो बूथ', gu: 'ફોટો બૂથ' } },
       { id: 'k30', emoji: '🎫', name: { en: 'Lucky Draw', hi: 'लकी ड्रा', gu: 'લકી ડ્રો' } }
     ]
+  },
+  cards: {
+    id: 'cards',
+    name: { en: 'House of Cards', hi: 'ताश के पत्ते', gu: 'પત્તાની રમત' },
+    icon: '🃏',
+    items: [
+      { id: 'c_as', name: { en: 'A ♠', hi: 'A ♠', gu: 'A ♠' } },
+      { id: 'c_2s', name: { en: '2 ♠', hi: '2 ♠', gu: '2 ♠' } },
+      { id: 'c_3s', name: { en: '3 ♠', hi: '3 ♠', gu: '3 ♠' } },
+      { id: 'c_4s', name: { en: '4 ♠', hi: '4 ♠', gu: '4 ♠' } },
+      { id: 'c_5s', name: { en: '5 ♠', hi: '5 ♠', gu: '5 ♠' } },
+      { id: 'c_6s', name: { en: '6 ♠', hi: '6 ♠', gu: '6 ♠' } },
+      { id: 'c_7s', name: { en: '7 ♠', hi: '7 ♠', gu: '7 ♠' } },
+      { id: 'c_8s', name: { en: '8 ♠', hi: '8 ♠', gu: '8 ♠' } },
+      { id: 'c_9s', name: { en: '9 ♠', hi: '9 ♠', gu: '9 ♠' } },
+      { id: 'c_10s', name: { en: '10 ♠', hi: '10 ♠', gu: '10 ♠' } },
+      { id: 'c_js', name: { en: 'J ♠', hi: 'J ♠', gu: 'J ♠' } },
+      { id: 'c_qs', name: { en: 'Q ♠', hi: 'Q ♠', gu: 'Q ♠' } },
+      { id: 'c_ks', name: { en: 'K ♠', hi: 'K ♠', gu: 'K ♠' } },
+
+      { id: 'c_ah', name: { en: 'A ♥', hi: 'A ♥', gu: 'A ♥' } },
+      { id: 'c_2h', name: { en: '2 ♥', hi: '2 ♥', gu: '2 ♥' } },
+      { id: 'c_3h', name: { en: '3 ♥', hi: '3 ♥', gu: '3 ♥' } },
+      { id: 'c_4h', name: { en: '4 ♥', hi: '4 ♥', gu: '4 ♥' } },
+      { id: 'c_5h', name: { en: '5 ♥', hi: '5 ♥', gu: '5 ♥' } },
+      { id: 'c_6h', name: { en: '6 ♥', hi: '6 ♥', gu: '6 ♥' } },
+      { id: 'c_7h', name: { en: '7 ♥', hi: '7 ♥', gu: '7 ♥' } },
+      { id: 'c_8h', name: { en: '8 ♥', hi: '8 ♥', gu: '8 ♥' } },
+      { id: 'c_9h', name: { en: '9 ♥', hi: '9 ♥', gu: '9 ♥' } },
+      { id: 'c_10h', name: { en: '10 ♥', hi: '10 ♥', gu: '10 ♥' } },
+      { id: 'c_jh', name: { en: 'J ♥', hi: 'J ♥', gu: 'J ♥' } },
+      { id: 'c_qh', name: { en: 'Q ♥', hi: 'Q ♥', gu: 'Q ♥' } },
+      { id: 'c_kh', name: { en: 'K ♥', hi: 'K ♥', gu: 'K ♥' } },
+
+      { id: 'c_ad', name: { en: 'A ♦', hi: 'A ♦', gu: 'A ♦' } },
+      { id: 'c_2d', name: { en: '2 ♦', hi: '2 ♦', gu: '2 ♦' } },
+      { id: 'c_3d', name: { en: '3 ♦', hi: '3 ♦', gu: '3 ♦' } },
+      { id: 'c_4d', name: { en: '4 ♦', hi: '4 ♦', gu: '4 ♦' } },
+      { id: 'c_5d', name: { en: '5 ♦', hi: '5 ♦', gu: '5 ♦' } },
+      { id: 'c_6d', name: { en: '6 ♦', hi: '6 ♦', gu: '6 ♦' } },
+      { id: 'c_7d', name: { en: '7 ♦', hi: '7 ♦', gu: '7 ♦' } },
+      { id: 'c_8d', name: { en: '8 ♦', hi: '8 ♦', gu: '8 ♦' } },
+      { id: 'c_9d', name: { en: '9 ♦', hi: '9 ♦', gu: '9 ♦' } },
+      { id: 'c_10d', name: { en: '10 ♦', hi: '10 ♦', gu: '10 ♦' } },
+      { id: 'c_jd', name: { en: 'J ♦', hi: 'J ♦', gu: 'J ♦' } },
+      { id: 'c_qd', name: { en: 'Q ♦', hi: 'Q ♦', gu: 'Q ♦' } },
+      { id: 'c_kd', name: { en: 'K ♦', hi: 'K ♦', gu: 'K ♦' } },
+
+      { id: 'c_ac', name: { en: 'A ♣', hi: 'A ♣', gu: 'A ♣' } },
+      { id: 'c_2c', name: { en: '2 ♣', hi: '2 ♣', gu: '2 ♣' } },
+      { id: 'c_3c', name: { en: '3 ♣', hi: '3 ♣', gu: '3 ♣' } },
+      { id: 'c_4c', name: { en: '4 ♣', hi: '4 ♣', gu: '4 ♣' } },
+      { id: 'c_5c', name: { en: '5 ♣', hi: '5 ♣', gu: '5 ♣' } },
+      { id: 'c_6c', name: { en: '6 ♣', hi: '6 ♣', gu: '6 ♣' } },
+      { id: 'c_7c', name: { en: '7 ♣', hi: '7 ♣', gu: '7 ♣' } },
+      { id: 'c_8c', name: { en: '8 ♣', hi: '8 ♣', gu: '8 ♣' } },
+      { id: 'c_9c', name: { en: '9 ♣', hi: '9 ♣', gu: '9 ♣' } },
+      { id: 'c_10c', name: { en: '10 ♣', hi: '10 ♣', gu: '10 ♣' } },
+      { id: 'c_jc', name: { en: 'J ♣', hi: 'J ♣', gu: 'J ♣' } },
+      { id: 'c_qc', name: { en: 'Q ♣', hi: 'Q ♣', gu: 'Q ♣' } },
+      { id: 'c_kc', name: { en: 'K ♣', hi: 'K ♣', gu: 'K ♣' } }
+    ]
   }
 };
 

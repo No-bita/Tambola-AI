@@ -52,6 +52,7 @@ export default function TicketGrid({
   const containerRef = useRef(null);
   
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
+  const isDeckTheme = ticketStyle === 'deck-design';
 
   // Compute current header title dynamically supporting translation fallbacks
   const currentTitle = 
@@ -61,15 +62,42 @@ export default function TicketGrid({
 
   // Get current font family based on selected language
   const getFontFamily = () => {
+    if (isDeckTheme) return "'Cinzel', Georgia, serif";
     if (language === 'gu') return 'var(--font-gujarati)';
     if (language === 'hi') return 'var(--font-devanagari)';
     return 'var(--font-sans)';
   };
 
+  // Parse card rank & suit from card item
+  const parseCardItem = (item) => {
+    if (!item) return null;
+    const rawEn = typeof item === 'object' && item.name?.en ? item.name.en : (typeof item === 'string' ? item : (item.name || ''));
+    const id = item.id || '';
+
+    const match = rawEn.match(/^([AKQJ0-9]+)\s*([♠♥♦♣])/i);
+    if (match) {
+      const rank = match[1].toUpperCase();
+      const suit = match[2];
+      const isRed = suit === '♥' || suit === '♦';
+      return { rank, suit, isRed, isCard: true };
+    }
+
+    if (id.startsWith('c_')) {
+      const suitLetter = id.slice(-1).toLowerCase();
+      const rankStr = id.slice(2, -1).toUpperCase();
+      const suitMap = { s: '♠', h: '♥', d: '♦', c: '♣' };
+      const suit = suitMap[suitLetter] || '♠';
+      const isRed = suitLetter === 'h' || suitLetter === 'd';
+      return { rank: rankStr, suit, isRed, isCard: true };
+    }
+
+    return null;
+  };
+
   // Get item name depending on language selection
   const getItemName = (item) => {
     if (!item) return '';
-    return item.name[language] || item.name['en'] || item.name;
+    return typeof item === 'object' ? (item.name?.[language] || item.name?.['en'] || item.name || '') : item;
   };
 
   // Get custom uploaded design styles or custom image background styles
@@ -79,9 +107,9 @@ export default function TicketGrid({
         wrapper: {
           background: `url(${customBgImage}) center/cover no-repeat`,
           border: '2px solid rgba(0,0,0,0.15)',
-          color: '#1e1a34', // dark text for clarity
+          color: '#1e1a34',
           fontFamily: getFontFamily(),
-          boxShadow: 'inset 0 0 0 1000px rgba(255, 255, 255, 0.2)' // subtle white wash to overlay image
+          boxShadow: 'inset 0 0 0 1000px rgba(255, 255, 255, 0.2)'
         },
         header: {
           borderBottom: '2px solid rgba(30, 26, 52, 0.15)',
@@ -122,7 +150,6 @@ export default function TicketGrid({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
-      {/* Grid styling based on tickets density */}
       <div
         className="print-area"
         ref={containerRef}
@@ -151,70 +178,149 @@ export default function TicketGrid({
                   className={`ticket-wrapper theme-${ticketStyle}`}
                   style={customStyles ? customStyles.wrapper : { fontFamily: getFontFamily() }}
                 >
+                  {/* House of Cards Custom Header */}
+                  {isDeckTheme ? (
+                    <div className="deck-header">
+                      {/* Left Badge: T. No */}
+                      <div className="deck-badge-tno">
+                        <div className="deck-badge-inner">
+                          <span className="deck-badge-label">T. NO</span>
+                          <span className="deck-badge-num">{globalIndex + 1}</span>
+                        </div>
+                      </div>
 
+                      {/* Center Title with Crown */}
+                      <div className="deck-title-group">
+                        <div className="deck-crown-flourish">
+                          <div className="deck-flourish-line"></div>
+                          <span className="deck-crown-icon">👑</span>
+                          <div className="deck-flourish-line"></div>
+                        </div>
+                        <h2 className="deck-main-title">{currentTitle}</h2>
+                        <div className="deck-title-underline"></div>
+                      </div>
 
-                  {/* Ticket Header Banner */}
-                  <div className="ticket-header" style={customStyles ? customStyles.header : {}}>
-                    <span className="ticket-title">{currentTitle}</span>
-                    <span className="ticket-no">{t.cardNo(globalIndex + 1)}</span>
-                  </div>
+                      {/* Right Badge: DEALER */}
+                      <div className="deck-badge-dealer">
+                        <div className="deck-badge-dealer-inner">
+                          <span className="deck-dealer-label">DEALER</span>
+                          <span className="deck-dealer-sub">✦</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Standard Ticket Header Banner */
+                    <div className="ticket-header" style={customStyles ? customStyles.header : {}}>
+                      <span className="ticket-title">{currentTitle}</span>
+                      <span className="ticket-no">{t.cardNo(globalIndex + 1)}</span>
+                    </div>
+                  )}
 
-                  {/* Custom Ticket Grid */}
-                  <div className="ticket-grid" style={{
-                    gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-                    gridTemplateRows: `repeat(${rows}, 1fr)`
-                  }}>
-                    {ticket.grid.map((row, rIdx) => 
-                      row.map((item, cIdx) => {
-                        const cellKey = `${ticket.id}-${rIdx}-${cIdx}`;
-                        const isMarked = !!markedCells[cellKey];
-                        const isEmpty = !item;
+                  {/* Grid Container (with side banners for House of Cards) */}
+                  <div className={isDeckTheme ? "deck-grid-container" : ""}>
+                    {isDeckTheme && (
+                      <div className="deck-side-banner left">
+                        <span className="deck-laurel-icon">🌿</span>
+                        <span>PLAY</span>
+                        <span>YOUR</span>
+                        <span>CARDS</span>
+                      </div>
+                    )}
 
-                        return (
-                          <div
-                            key={`${rIdx}-${cIdx}`}
-                            onClick={() => !isEmpty && toggleCell(ticket.id, rIdx, cIdx)}
-                            className={`ticket-cell ${isEmpty ? 'empty' : 'filled'} ${isMarked ? 'marked' : ''}`}
-                            style={customStyles ? customStyles.cell(isMarked, isEmpty) : {}}
-                          >
-                            {!isEmpty && <span className="cell-name">{getItemName(item)}</span>}
-                            {!isEmpty && isMarked && (
-                              <div style={{
-                                position: 'absolute',
-                                width: '100%',
-                                height: '100%',
-                                background: 'rgba(239, 68, 68, 0.15)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                pointerEvents: 'none'
-                              }}>
+                    {/* Custom Ticket Grid */}
+                    <div className="ticket-grid" style={{
+                      gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                      gridTemplateRows: `repeat(${rows}, 1fr)`
+                    }}>
+                      {ticket.grid.map((row, rIdx) => 
+                        row.map((item, cIdx) => {
+                          const cellKey = `${ticket.id}-${rIdx}-${cIdx}`;
+                          const isMarked = !!markedCells[cellKey];
+                          const isEmpty = !item;
+                          const cardData = !isEmpty ? parseCardItem(item) : null;
+
+                          return (
+                            <div
+                              key={`${rIdx}-${cIdx}`}
+                              onClick={() => !isEmpty && toggleCell(ticket.id, rIdx, cIdx)}
+                              className={`ticket-cell ${isEmpty ? 'empty' : 'filled'} ${isMarked ? 'marked' : ''} ${isDeckTheme ? 'deck-card-cell' : ''} ${isDeckTheme ? (cardData?.isRed ? 'suit-red' : 'suit-black') : ''}`}
+                              style={customStyles ? customStyles.cell(isMarked, isEmpty) : {}}
+                            >
+                              {!isEmpty && isDeckTheme && cardData?.isCard ? (
+                                <div className="deck-card-content">
+                                  <div className="deck-card-corner top-left">
+                                    <span className="deck-corner-rank">{cardData.rank}</span>
+                                    <span className="deck-corner-suit">{cardData.suit}</span>
+                                  </div>
+                                  <div className="deck-card-center">
+                                    <span className="deck-center-suit">{cardData.suit}</span>
+                                  </div>
+                                </div>
+                              ) : !isEmpty ? (
+                                <span className={`cell-name ${isDeckTheme && cardData?.isRed ? 'suit-red' : ''}`}>
+                                  {getItemName(item)}
+                                </span>
+                              ) : null}
+
+                              {!isEmpty && isMarked && (
                                 <div style={{
-                                  border: '2px solid #ef4444',
-                                  borderRadius: '50%',
-                                  width: '26px',
-                                  height: '26px',
-                                  transform: 'rotate(-12deg)',
+                                  position: 'absolute',
+                                  width: '100%',
+                                  height: '100%',
+                                  background: 'rgba(239, 68, 68, 0.2)',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  color: '#ef4444',
-                                  fontSize: '8px',
-                                  fontWeight: '900',
-                                  textTransform: 'uppercase'
+                                  pointerEvents: 'none',
+                                  borderRadius: 'inherit'
                                 }}>
-                                  {t.cutMark}
+                                  <div style={{
+                                    border: '2px solid #ef4444',
+                                    borderRadius: '50%',
+                                    width: '26px',
+                                    height: '26px',
+                                    transform: 'rotate(-12deg)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: '#ef4444',
+                                    fontSize: '8px',
+                                    fontWeight: '900',
+                                    textTransform: 'uppercase'
+                                  }}>
+                                    {t.cutMark}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })
+                              )}
+                            </div>
+                          );
+                        })
+                      )}
+                    </div>
+
+                    {isDeckTheme && (
+                      <div className="deck-side-banner right">
+                        <span className="deck-laurel-icon">🌿</span>
+                        <span>LUCK</span>
+                        <span>FAVORS</span>
+                        <span>YOU</span>
+                      </div>
                     )}
                   </div>
 
+                  {/* House of Cards Bottom Banner */}
+                  {isDeckTheme && (
+                    <div className="deck-bottom-banner">
+                      <div className="deck-banner-border">
+                        <span className="deck-banner-flourish">✦</span>
+                        <span className="deck-banner-text">PLACE YOUR BETS, MARK YOUR LUCK!</span>
+                        <span className="deck-banner-flourish">✦</span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Ticket Footer */}
-                  <div className="ticket-footer">
+                  <div className={`ticket-footer ${isDeckTheme ? 'deck-footer' : ''}`}>
                     Made with <span className="ticket-footer-heart">❤️</span> by Falguni Shah | 9821881964
                   </div>
 

@@ -26,11 +26,13 @@ const TRANSLATIONS = {
     themeKitty: '💄 Kitty Party',
     themeCustom: '✨ Create new',
     skinRoyalGold: '👑 Royal Gold',
+    skinDeckDesign: '🃏 House of Cards',
     skinNeonParty: '⚡ Neon Party',
     skinFreshMint: '🍃 Fresh Mint',
     skinClassicRetro: '📜 Classic Retro',
     skinFloralQueen: '🌸 Floral Queen',
     skinFloralGarden: '🌸 Floral Garden',
+    deckItemsDisabled: '🃏 52 Cards Deck (Standard)',
     itemsStatus: (count, needed) => `${count} Items (${count >= needed ? 'Valid' : `Needs ${needed}`})`,
     importBtn: (count) => `Import ${count} Items`,
     bulkPlaceholder: 'Paste items separated by commas or lines, e.g.:\nDosa, Jalebi, Samosa, Dhokla',
@@ -72,11 +74,13 @@ const TRANSLATIONS = {
     themeKitty: '💄 किटी पार्टी',
     themeCustom: '✨ नया बनाएं',
     skinRoyalGold: '👑 रॉयल गोल्ड',
+    skinDeckDesign: '🃏 हाउस ऑफ कार्ड्स',
     skinNeonParty: '⚡ नियॉन पार्टी',
     skinFreshMint: '🍃 फ्रेश मिंट',
     skinClassicRetro: '📜 क्लासिक रेट्रो',
     skinFloralQueen: '🌸 फ्लोरल क्वीन',
     skinFloralGarden: '🌸 फ्लोरल गार्डन',
+    deckItemsDisabled: '🃏 52 ताश गड्डी (स्थिर)',
     itemsStatus: (count, needed) => `${count} आइटम (${count >= needed ? 'वैध' : `आवश्यकता ${needed}`})`,
     importBtn: (count) => `${count} आइटम आयात करें`,
     bulkPlaceholder: 'अल्पविराम या नई लाइनों द्वारा अलग किए गए आइटम पेस्ट करें, जैसे:\nडोसा, जलेबी, समोसा, ढोकला',
@@ -118,11 +122,13 @@ const TRANSLATIONS = {
     themeKitty: '💄 કીટી પાર્ટી',
     themeCustom: '✨ કસ્ટમ બનાવો',
     skinRoyalGold: '👑 રોયલ ગોલ્ડ',
+    skinDeckDesign: '🃏 હાઉસ ઓફ કાર્ડ્સ',
     skinNeonParty: '⚡ નિયોન પાર્ટી',
     skinFreshMint: '🍃 ફ્રેશ મિન્ટ',
     skinClassicRetro: '📜 ક્લાસિક રેટ્રો',
     skinFloralQueen: '🌸 ફ્લોરલ ક્વીન',
     skinFloralGarden: '🌸 ફ્લોરલ ગાર્ડન',
+    deckItemsDisabled: '🃏 52 પત્તા ડેક (સ્થિર)',
     itemsStatus: (count, needed) => `${count} વસ્તુઓ (${count >= needed ? 'માન્ય' : `જરૂર છે ${needed}`})`,
     importBtn: (count) => `${count} વસ્તુઓ આયાત કરો`,
     bulkPlaceholder: 'અલ્પવિરામ અથવા પંક્તિઓ દ્વારા અલગ કરેલી વસ્તુઓ પેસ્ટ કરો, જેમ કે:\nઢોસા, જલેબી, સમોસા, ઢોકળા',
@@ -307,6 +313,34 @@ export default function ControlPanel({
 
 
 
+  // Handle style change dropdown
+  const isDeckDesign = ticketStyle === 'deck-design';
+
+  const handleTicketStyleChange = (val) => {
+    setTicketStyle(val);
+    if (val === 'deck-design') {
+      setTheme('cards');
+      setItems([...DEFAULT_THEMES.cards.items]);
+      setCustomTitle({
+        en: 'House of Cards',
+        hi: 'ताश के पत्ते',
+        gu: 'પત્તાની રમત'
+      });
+      setRows(3);
+      setColumns(4);
+      setItemsPerRow(4);
+    } else {
+      if (theme === 'cards' || (items.length > 0 && typeof items[0]?.id === 'string' && items[0]?.id?.startsWith('c_'))) {
+        setTheme('custom');
+        setItems([]);
+        setCustomTitle({ en: '', hi: '', gu: '' });
+        setRows(3);
+        setColumns(9);
+        setItemsPerRow(5);
+      }
+    }
+  };
+
   return (
     <div className="glass-panel no-print" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       
@@ -336,7 +370,8 @@ export default function ControlPanel({
           <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.themeLabel}</label>
           <button
             type="button"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => !isDeckDesign && setIsModalOpen(true)}
+            disabled={isDeckDesign}
             className={`btn btn-secondary ${highlightAddBtn ? 'shake-animation' : ''}`}
             style={{
               padding: '10px 14px',
@@ -346,15 +381,21 @@ export default function ControlPanel({
               justifyContent: 'center',
               gap: '8px',
               width: '100%',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-primary)',
+              backgroundColor: isDeckDesign ? 'rgba(255, 255, 255, 0.02)' : 'rgba(255, 255, 255, 0.05)',
+              border: isDeckDesign ? '1px dashed rgba(255, 255, 255, 0.2)' : '1px solid var(--border-color)',
+              color: isDeckDesign ? 'var(--text-muted)' : 'var(--text-primary)',
               borderRadius: '8px',
-              cursor: 'pointer',
-              height: '42px'
+              cursor: isDeckDesign ? 'not-allowed' : 'pointer',
+              height: '42px',
+              opacity: isDeckDesign ? 0.7 : 1
             }}
+            title={isDeckDesign ? t.deckItemsDisabled : undefined}
           >
-            ✏️ {language === 'hi' ? 'सूची संपादित करें' : language === 'gu' ? 'સૂચિ સંપાદિત કરો' : 'Edit Items'}
+            {isDeckDesign ? (
+              <>{t.deckItemsDisabled}</>
+            ) : (
+              <>✏️ {language === 'hi' ? 'सूची संपादित करें' : language === 'gu' ? 'સૂચિ સંપાદિત કરો' : 'Edit Items'} {items.length > 0 ? `(${items.length})` : ''}</>
+            )}
           </button>
         </div>
 
@@ -404,7 +445,7 @@ export default function ControlPanel({
             onChange={(e) => setColumns(e.target.value === '' ? '' : parseInt(e.target.value))}
             onBlur={() => {
               let c = parseInt(columns);
-              if (isNaN(c) || c < 1) c = 9;
+              if (isNaN(c) || c < 1) c = isDeckDesign ? 4 : 9;
               if (c > 9) c = 9;
               setColumns(c);
               const minPer = Math.ceil(c / (rows || 3));
@@ -420,14 +461,14 @@ export default function ControlPanel({
           <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--text-secondary)' }}>{t.itemsPerRowLabel}</label>
           <input
             type="number"
-            min={Math.ceil((columns || 9) / (rows || 3))}
-            max={columns || 9}
+            min={Math.ceil((columns || (isDeckDesign ? 4 : 9)) / (rows || 3))}
+            max={columns || (isDeckDesign ? 4 : 9)}
             value={itemsPerRow}
             onChange={(e) => setItemsPerRow(e.target.value === '' ? '' : parseInt(e.target.value))}
             onBlur={() => {
               let ipr = parseInt(itemsPerRow);
-              const minPer = Math.ceil((columns || 9) / (rows || 3));
-              const maxPer = columns || 9;
+              const minPer = Math.ceil((columns || (isDeckDesign ? 4 : 9)) / (rows || 3));
+              const maxPer = columns || (isDeckDesign ? 4 : 9);
               if (isNaN(ipr) || ipr < minPer) ipr = minPer;
               if (ipr > maxPer) ipr = maxPer;
               setItemsPerRow(ipr);
@@ -455,10 +496,11 @@ export default function ControlPanel({
           </div>
           <select
             value={ticketStyle}
-            onChange={(e) => setTicketStyle(e.target.value)}
+            onChange={(e) => handleTicketStyleChange(e.target.value)}
             className="form-input"
           >
             <option value="royal-gold">{t.skinRoyalGold}</option>
+            <option value="deck-design">{t.skinDeckDesign}</option>
             <option value="neon-party">{t.skinNeonParty}</option>
             <option value="fresh-mint">{t.skinFreshMint}</option>
             <option value="classic-retro">{t.skinClassicRetro}</option>
