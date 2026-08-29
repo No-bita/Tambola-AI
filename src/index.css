@@ -1060,11 +1060,17 @@ body {
 
 /* Printing styles overrides */
 @media print {
-  body {
-    background: white !important;
-    color: black !important;
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
     margin: 0 !important;
     padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   .no-print {
     display: none !important;
@@ -1076,20 +1082,43 @@ body {
     margin: 0 !important;
     box-shadow: none !important;
     background: transparent !important;
+    overflow: visible !important;
   }
   .a4-page {
     width: 210mm !important;
     height: 297mm !important;
-    padding: 8mm 10mm !important;
-    justify-content: center !important;
-    gap: 8mm !important;
+    max-width: none !important;
+    aspect-ratio: unset !important;
     margin: 0 !important;
     box-shadow: none !important;
     border-radius: 0 !important;
     border: none !important;
     page-break-after: always !important;
+    break-after: page !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    box-sizing: border-box !important;
+  }
+  .a4-page.a4-grid-1 {
+    padding: 14mm 10mm !important;
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+  .a4-page.a4-grid-2 {
+    padding: 10mm 10mm !important;
+    justify-content: space-around !important;
+    gap: 0 !important;
+  }
+  .a4-page.a4-grid-3 {
+    padding: 8mm 8mm !important;
+    justify-content: space-around !important;
+    gap: 0 !important;
+  }
+  .a4-page.a4-grid-4 {
+    padding: 8mm 6mm !important;
+  }
+  .a4-page.a4-grid-6 {
+    padding: 6mm 6mm !important;
   }
   .cell-name {
     font-weight: 800 !important;
@@ -1097,8 +1126,8 @@ body {
   .ticket-title {
     font-weight: 900 !important;
   }
-  /* Ensure backgrounds render correctly in print */
-  * {
+  /* Ensure backgrounds and gradients render accurately in print */
+  *, *::before, *::after {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }

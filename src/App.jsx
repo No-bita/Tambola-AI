@@ -98,12 +98,12 @@ export default function App() {
           windowWidth: 794,
           backgroundColor: '#ffffff'
         });
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const imgData = canvas.toDataURL('image/png');
         
         if (i > 0) {
           doc.addPage();
         }
-        doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+        doc.addImage(imgData, 'PNG', 0, 0, 210, 297, undefined, 'FAST');
       }
 
       setExportProgress(95);
