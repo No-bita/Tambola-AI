@@ -756,7 +756,8 @@ body {
   aspect-ratio: unset !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  zoom: 1 !important;
+  zoom: normal !important;
+  transform: none !important;
 }
 
 /* ===== Grid density variants for tickets per page ===== */

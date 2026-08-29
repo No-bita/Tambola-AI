@@ -65,13 +65,13 @@ export default function App() {
 
     try {
       setIsExporting(true);
-      setExportProgress(10);
+      setExportProgress(5);
 
-      // Activate export mode: forces fixed A4 dimensions, removes overflow clipping
+      // Activate export mode
       printArea.classList.add('export-mode');
 
-      // Give the browser a frame to apply the export-mode styles
-      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      // Wait a short moment for DOM & fonts to settle
+      await new Promise(resolve => setTimeout(resolve, 150));
       
       const pages = printArea.querySelectorAll('.a4-page');
       if (!pages.length) {
@@ -84,7 +84,8 @@ export default function App() {
       const doc = new jsPDF({
         orientation: 'p',
         unit: 'mm',
-        format: 'a4'
+        format: 'a4',
+        compress: true
       });
 
       for (let i = 0; i < pages.length; i++) {
@@ -92,27 +93,24 @@ export default function App() {
         const canvas = await html2canvas(pages[i], {
           scale: 2,
           useCORS: true,
+          allowTaint: true,
           logging: false,
-          width: 794,   // Fixed A4 width at 96dpi
-          height: 1123,  // Fixed A4 height at 96dpi
-          windowWidth: 794,
           backgroundColor: '#ffffff'
         });
-        const imgData = canvas.toDataURL('image/png');
+        const imgData = canvas.toDataURL('image/jpeg', 0.98);
         
         if (i > 0) {
-          doc.addPage();
+          doc.addPage('a4', 'p');
         }
-        doc.addImage(imgData, 'PNG', 0, 0, 210, 297, undefined, 'FAST');
+        doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
       }
 
-      setExportProgress(95);
+      setExportProgress(98);
       doc.save(`${currentTitle.replace(/\s+/g, '_')}_Tickets.pdf`);
     } catch (err) {
       console.error('Error generating PDF:', err);
-      alert('Could not generate PDF. Please try again.');
+      alert(`Could not generate PDF: ${err.message || 'Please try again'}`);
     } finally {
-      // Remove export mode to restore normal preview styling
       printArea.classList.remove('export-mode');
       setIsExporting(false);
       setExportProgress(0);
