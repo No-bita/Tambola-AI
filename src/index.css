@@ -366,14 +366,16 @@ body {
 /* 7. HOUSE OF CARDS / DECK DESIGN (Exact match to deck_design.png) */
 .theme-deck-design {
   background: radial-gradient(ellipse at center, #0a492f 0%, #063421 55%, #021a10 100%) !important;
-  border: 9px solid #20130b !important;
-  box-shadow: inset 0 0 0 2px #d4af37, inset 0 0 45px rgba(0, 0, 0, 0.88), 0 14px 40px rgba(0, 0, 0, 0.6) !important;
+  border: 8px solid #20130b !important;
+  box-shadow: inset 0 0 0 2px #d4af37, inset 0 0 40px rgba(0, 0, 0, 0.88), 0 10px 30px rgba(0, 0, 0, 0.6) !important;
   outline: 1px solid rgba(212, 175, 55, 0.4) !important;
-  outline-offset: -8px !important;
+  outline-offset: -7px !important;
   color: #e5c158 !important;
-  padding: 20px 24px 12px 24px !important;
+  padding: 14px 20px 8px 20px !important;
   position: relative !important;
-  border-radius: 28px !important;
+  border-radius: 24px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
 }
 
 /* Header */
@@ -383,19 +385,19 @@ body {
   align-items: center !important;
   width: 100% !important;
   border-bottom: none !important;
-  margin-bottom: 10px !important;
+  margin-bottom: 6px !important;
   padding-bottom: 0 !important;
   position: relative;
 }
 
 /* Left Badge: T. No */
 .deck-badge-tno {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: radial-gradient(circle, #0e4c34 30%, #062b1d 100%);
-  border: 2.5px solid #d4af37;
-  box-shadow: inset 0 0 0 2px rgba(212, 175, 55, 0.4), 0 4px 12px rgba(0, 0, 0, 0.6);
+  border: 2px solid #d4af37;
+  box-shadow: inset 0 0 0 1.5px rgba(212, 175, 55, 0.4), 0 3px 8px rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -410,7 +412,7 @@ body {
 }
 .deck-badge-label {
   font-family: 'Cinzel', serif;
-  font-size: 9.5px;
+  font-size: 8.5px;
   font-weight: 800;
   color: #f0cb64;
   letter-spacing: 0.5px;
@@ -418,7 +420,7 @@ body {
 }
 .deck-badge-num {
   font-family: 'Cinzel', serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 900;
   color: #ffffff;
   margin-top: 1px;
@@ -431,51 +433,51 @@ body {
   align-items: center;
   justify-content: center;
   flex: 1;
-  margin: 0 10px;
+  margin: 0 8px;
 }
 .deck-crown-flourish {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 2px;
+  gap: 6px;
+  margin-bottom: 1px;
 }
 .deck-crown-icon {
-  font-size: 15px;
+  font-size: 13px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
 }
 .deck-flourish-line {
   height: 1px;
-  width: 36px;
+  width: 30px;
   background: linear-gradient(90deg, transparent, #d4af37, transparent);
 }
 .deck-main-title {
   font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 900;
-  letter-spacing: 3.5px;
+  letter-spacing: 3px;
   color: #f8e5a7;
   text-transform: uppercase;
-  text-shadow: 0 3px 6px rgba(0,0,0,0.9), 0 0 16px rgba(212, 175, 55, 0.5);
+  text-shadow: 0 2px 5px rgba(0,0,0,0.9), 0 0 12px rgba(212, 175, 55, 0.5);
   margin: 0;
   line-height: 1.1;
   text-align: center;
 }
 .deck-title-underline {
-  width: 80%;
-  height: 2px;
+  width: 70%;
+  height: 1.5px;
   background: linear-gradient(90deg, transparent, #d4af37, #fdf1c7, #d4af37, transparent);
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 /* Right Badge: DEALER */
 .deck-badge-dealer {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: radial-gradient(circle, #fffdf5 35%, #e3d2b0 100%);
-  border: 2.5px solid #b38b2d;
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.8), 0 4px 12px rgba(0,0,0,0.6);
+  border: 2px solid #b38b2d;
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.8), 0 3px 8px rgba(0,0,0,0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -490,16 +492,16 @@ body {
 }
 .deck-dealer-label {
   font-family: 'Cinzel', 'Outfit', sans-serif;
-  font-size: 9.5px;
+  font-size: 8.5px;
   font-weight: 900;
   color: #2d1810;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 .deck-dealer-sub {
-  font-size: 8px;
+  font-size: 7px;
   color: #b38b2d;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 /* Side Banners Container */
@@ -508,7 +510,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 14px;
+  gap: 10px;
   position: relative;
 }
 .deck-side-banner {
@@ -516,36 +518,38 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 3px;
   color: #d4af37;
-  font-size: 8px;
+  font-size: 7.5px;
   font-weight: 900;
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   opacity: 0.9;
-  max-width: 42px;
+  max-width: 36px;
   text-align: center;
-  line-height: 1.25;
+  line-height: 1.2;
   font-family: 'Cinzel', serif;
   flex-shrink: 0;
 }
 .deck-laurel-icon {
-  font-size: 15px;
+  font-size: 13px;
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
 }
 
 /* Grid & Playing Card Cells */
 .theme-deck-design .ticket-grid {
-  gap: 12px 14px;
+  gap: 8px 10px;
   flex: 1;
 }
 .theme-deck-design .ticket-cell {
-  border-radius: 12px;
+  border-radius: 10px !important;
   position: relative;
   overflow: hidden;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  aspect-ratio: 3 / 3.8;
-  min-height: 90px;
+  aspect-ratio: 3 / 2.5;
+  min-height: 80px;
+  max-height: 110px;
+  padding: 4px 6px !important;
 }
 .theme-deck-design .ticket-cell.empty {
   background: rgba(0, 18, 9, 0.38) !important;
@@ -555,12 +559,11 @@ body {
 .theme-deck-design .ticket-cell.filled {
   background: linear-gradient(180deg, #fdfbf5 0%, #f7f1e4 55%, #eee4d1 100%) !important;
   border: 1.5px solid #d4c8b0 !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.9) !important;
-  padding: 4px 6px !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.9) !important;
 }
 .theme-deck-design .ticket-cell.filled:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.95) !important;
 }
 
 /* Card Content: rank & suit layout */
@@ -573,29 +576,26 @@ body {
   align-items: center;
   position: relative;
 }
-.deck-card-corner {
+.deck-card-corner.top-left {
+  position: absolute;
+  top: 4px;
+  left: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1;
-  font-family: 'Cinzel', Georgia, serif;
-}
-.deck-card-corner.top-left {
-  position: absolute;
-  top: 5px;
-  left: 6px;
 }
 .deck-corner-rank {
-  font-size: calc(22px * var(--ticket-font-scale, 1));
+  font-size: calc(20px * var(--ticket-font-scale, 1));
   font-weight: 900;
-  line-height: 0.95;
+  line-height: 0.9;
   letter-spacing: -0.5px;
   font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
 }
 .deck-corner-suit {
-  font-size: calc(18px * var(--ticket-font-scale, 1));
+  font-size: calc(15px * var(--ticket-font-scale, 1));
   line-height: 1;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .deck-card-center {
   display: flex;
@@ -605,9 +605,9 @@ body {
   height: 100%;
 }
 .deck-center-suit {
-  font-size: calc(44px * var(--ticket-font-scale, 1));
+  font-size: calc(38px * var(--ticket-font-scale, 1));
   line-height: 1;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
 }
 
 /* Suit Colors */
@@ -624,55 +624,55 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 6px;
   margin-bottom: 2px;
 }
 .deck-banner-border {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 4px 22px;
+  gap: 8px;
+  padding: 3px 18px;
   border: 1.5px solid #d4af37;
-  border-radius: 6px;
+  border-radius: 5px;
   background: rgba(0, 0, 0, 0.45);
   box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.35);
 }
 .deck-banner-text {
   font-family: 'Cinzel', serif;
-  font-size: 9.5px;
+  font-size: 8.5px;
   font-weight: 900;
-  letter-spacing: 2px;
+  letter-spacing: 1.8px;
   color: #f8e7b2;
   text-transform: uppercase;
 }
 .deck-banner-flourish {
   color: #d4af37;
-  font-size: 8.5px;
+  font-size: 7.5px;
 }
 
 /* Deck Footer */
 .deck-footer {
   color: #d4af37 !important;
   font-family: 'Outfit', sans-serif;
-  font-size: 10px !important;
+  font-size: 9px !important;
   letter-spacing: 0.5px;
   opacity: 0.85 !important;
-  margin-top: 6px !important;
+  margin-top: 4px !important;
 }
 
 /* Density overrides for deck theme */
 .a4-page.a4-grid-1 .theme-deck-design {
-  padding: 28px 32px 20px 32px !important;
-  border-radius: 32px !important;
-  border-width: 12px !important;
+  padding: 24px 30px 16px 30px !important;
+  border-radius: 30px !important;
+  border-width: 11px !important;
 }
 .a4-page.a4-grid-1 .deck-main-title {
-  font-size: calc(32px * var(--ticket-font-scale, 1));
+  font-size: calc(30px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-1 .deck-badge-tno, .a4-page.a4-grid-1 .deck-badge-dealer {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
 }
 .a4-page.a4-grid-1 .deck-center-suit {
   font-size: calc(56px * var(--ticket-font-scale, 1));
@@ -681,44 +681,68 @@ body {
   font-size: calc(30px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-1 .deck-corner-suit {
-  font-size: calc(24px * var(--ticket-font-scale, 1));
+  font-size: calc(22px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-1 .theme-deck-design .ticket-cell {
   min-height: 130px;
+  max-height: 180px;
   border-radius: 14px !important;
 }
 
+.a4-page.a4-grid-2 .theme-deck-design {
+  padding: 14px 18px 8px 18px !important;
+  border-width: 8px !important;
+  border-radius: 22px !important;
+}
+.a4-page.a4-grid-2 .deck-main-title {
+  font-size: calc(22px * var(--ticket-font-scale, 1));
+}
+.a4-page.a4-grid-2 .deck-center-suit {
+  font-size: calc(38px * var(--ticket-font-scale, 1));
+}
+.a4-page.a4-grid-2 .deck-corner-rank {
+  font-size: calc(20px * var(--ticket-font-scale, 1));
+}
+.a4-page.a4-grid-2 .deck-corner-suit {
+  font-size: calc(15px * var(--ticket-font-scale, 1));
+}
+.a4-page.a4-grid-2 .theme-deck-design .ticket-cell {
+  min-height: 82px;
+  max-height: 105px;
+}
+
 .a4-page.a4-grid-3 .theme-deck-design {
-  padding: 12px 14px 6px 14px !important;
-  border-width: 6px !important;
-  border-radius: 20px !important;
+  padding: 8px 12px 4px 12px !important;
+  border-width: 5px !important;
+  border-radius: 16px !important;
 }
 .a4-page.a4-grid-3 .deck-main-title {
-  font-size: calc(18px * var(--ticket-font-scale, 1));
-}
-.a4-page.a4-grid-3 .deck-badge-tno, .a4-page.a4-grid-3 .deck-badge-dealer {
-  width: 36px;
-  height: 36px;
-}
-.a4-page.a4-grid-3 .deck-badge-label, .a4-page.a4-grid-3 .deck-dealer-label {
-  font-size: 7.5px;
-}
-.a4-page.a4-grid-3 .deck-side-banner {
-  font-size: 6.5px;
-  max-width: 30px;
-}
-.a4-page.a4-grid-3 .deck-center-suit {
-  font-size: calc(30px * var(--ticket-font-scale, 1));
-}
-.a4-page.a4-grid-3 .deck-corner-rank {
   font-size: calc(16px * var(--ticket-font-scale, 1));
 }
+.a4-page.a4-grid-3 .deck-badge-tno, .a4-page.a4-grid-3 .deck-badge-dealer {
+  width: 32px;
+  height: 32px;
+}
+.a4-page.a4-grid-3 .deck-badge-label, .a4-page.a4-grid-3 .deck-dealer-label {
+  font-size: 6.5px;
+}
+.a4-page.a4-grid-3 .deck-side-banner {
+  font-size: 6px;
+  max-width: 26px;
+}
+.a4-page.a4-grid-3 .deck-center-suit {
+  font-size: calc(24px * var(--ticket-font-scale, 1));
+}
+.a4-page.a4-grid-3 .deck-corner-rank {
+  font-size: calc(14px * var(--ticket-font-scale, 1));
+}
 .a4-page.a4-grid-3 .deck-corner-suit {
-  font-size: calc(13px * var(--ticket-font-scale, 1));
+  font-size: calc(11px * var(--ticket-font-scale, 1));
 }
 .a4-page.a4-grid-3 .theme-deck-design .ticket-cell {
-  min-height: 65px;
-  border-radius: 8px !important;
+  min-height: 52px;
+  max-height: 70px;
+  border-radius: 7px !important;
 }
 
 /* A4 Sheet Simulator Styling (Browser Preview) */
