@@ -165,8 +165,44 @@ export function generateTicket(items, ticketIndex, rows = 3, columns = 9, itemsP
     throw new Error(`Total items per ticket (${rows * itemsPerRow}) must be at least the number of columns (${columns}) so no column is empty.`);
   }
 
-  // Shuffle items and take exactly rows * itemsPerRow unique items
-  const shuffledItems = shuffleArray(items).slice(0, minNeeded);
+  // Check if items are playing cards (House of Cards design guardrail)
+  const isPlayingCards = items.length >= 12 && items.some(item => 
+    (typeof item?.id === 'string' && item.id.startsWith('c_')) || 
+    (typeof item?.name?.en === 'string' && /[♠♥♦♣]/.test(item.name.en))
+  );
+
+  let shuffledItems;
+  if (isPlayingCards && minNeeded >= 12) {
+    const spades = items.filter(item => item.id?.endsWith('s') || item.name?.en?.includes('♠'));
+    const hearts = items.filter(item => item.id?.endsWith('h') || item.name?.en?.includes('♥'));
+    const diamonds = items.filter(item => item.id?.endsWith('d') || item.name?.en?.includes('♦'));
+    const clubs = items.filter(item => item.id?.endsWith('c') || item.name?.en?.includes('♣'));
+
+    if (spades.length >= 3 && hearts.length >= 3 && diamonds.length >= 3 && clubs.length >= 3) {
+      // Pick 3 unique random cards from each suit (ensures balanced 3 ♠, 3 ♥, 3 ♦, 3 ♣)
+      const selSpades = shuffleArray(spades).slice(0, 3);
+      const selHearts = shuffleArray(hearts).slice(0, 3);
+      const selDiamonds = shuffleArray(diamonds).slice(0, 3);
+      const selClubs = shuffleArray(clubs).slice(0, 3);
+
+      const chosenCards = [...selSpades, ...selHearts, ...selDiamonds, ...selClubs];
+      
+      // If ticket requires more than 12 cards, fill the rest with remaining cards randomly
+      if (minNeeded > 12) {
+        const chosenIds = new Set(chosenCards.map(c => c.id));
+        const remainingCards = items.filter(c => !chosenIds.has(c.id));
+        const additional = shuffleArray(remainingCards).slice(0, minNeeded - 12);
+        chosenCards.push(...additional);
+      }
+
+      // Shuffle all selected cards together so they can be positioned anywhere across the grid
+      shuffledItems = shuffleArray(chosenCards);
+    } else {
+      shuffledItems = shuffleArray(items).slice(0, minNeeded);
+    }
+  } else {
+    shuffledItems = shuffleArray(items).slice(0, minNeeded);
+  }
   
   // Generate a valid grid mask where each row has exactly itemsPerRow items
   // and every column has at least one item (no column is blank)

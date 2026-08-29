@@ -136,9 +136,31 @@ export default function App() {
     if (items.length < rows * itemsPerRow) return;
     
     const newTickets = [];
+    const isPlayingCards = ticketStyle === 'deck-design' || (items.length >= 12 && items.some(item => typeof item?.id === 'string' && item.id.startsWith('c_')));
+    const seenCardSets = new Set(); // to track sets of card IDs for uniqueness
+
     for (let i = 0; i < ticketsCount; i++) {
       try {
-        const ticket = generateTicket(items, i, rows, columns, itemsPerRow);
+        let ticket;
+        let attempts = 0;
+        while (attempts < 100) {
+          attempts++;
+          ticket = generateTicket(items, i, rows, columns, itemsPerRow);
+          if (!isPlayingCards) break;
+
+          // Extract sorted list of card IDs on this ticket
+          const cardKey = ticket.grid
+            .flat()
+            .filter(Boolean)
+            .map(card => card.id)
+            .sort()
+            .join(',');
+
+          if (!seenCardSets.has(cardKey)) {
+            seenCardSets.add(cardKey);
+            break;
+          }
+        }
         newTickets.push(ticket);
       } catch (err) {
         console.error('Failed to generate ticket:', err);
